@@ -513,3 +513,77 @@ Task: Periodic QA + add page loader, exit-intent newsletter popup, and save-quot
 6. **Performance audit**: Run Lighthouse, optimize images with next/image.
 7. **A/B test popup triggers**: Test different offers (palette guide vs 10% off vs free visit).
 8. **Admin dashboard**: Build a simple admin route to view inquiries/bookings/quotes.
+
+---
+Task ID: V6 (cron review round 6)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + add room photo upload to visualizer, admin dashboard with keyboard shortcut.
+
+## Current Project Status (start of round)
+- Site had 23 sections + 3 overlay components (PageLoader, NewsletterPopup, SaveQuote modal), 4 APIs, 26 images.
+- All previously verified features stable: paint cursor, palette explorer, service area search, SVG award badges, press strip, structured data, hero gradient mesh, page loader, exit-intent popup, save-quote.
+- No runtime errors; VLM scroll-transition artifacts are expected.
+
+## Goals / Completed Modifications
+
+### QA Findings (via agent-browser + VLM)
+- No runtime errors, no broken layouts, lint clean.
+- Console warning about scroll container position is cosmetic (framer-motion).
+- All prior features remain stable.
+
+### New Sections & Components (2 new, ~900 lines)
+1. **ColorVisualizer room upload** — Enhanced existing visualizer:
+   - "Upload your room" button (dashed border, paint-sage when active) next to room tabs
+   - Hidden file input triggered by button click
+   - Drag-and-drop support on the preview area (border turns dashed primary on dragover)
+   - "Drop your room photo here" overlay during drag
+   - FileReader API converts image to base64 data URL for preview
+   - Uploaded room replaces preview image with "Your room" label + filename
+   - "Remove" button (X icon) to clear upload and return to preset rooms
+   - Room preset tabs disabled when uploaded room is active
+   - Color overlay (mix-blend) still works on uploaded room
+2. **AdminDashboard** — Full admin overlay (keyboard shortcut: Ctrl+Shift+A):
+   - Modal overlay with backdrop blur, spring-animated entrance
+   - 4 stat cards: Inquiries, Bookings, Saved Quotes, Subscribers (clickable tabs)
+   - Search bar filters by name, email, phone, service
+   - Inquiries tab: full record list with service, brand, budget, message, status badge
+   - Bookings tab: preferred date, room, address, notes, status badge
+   - Saved Quotes tab: parsed JSON breakdown (area, coats, paint/prep/extras/GST costs, total)
+   - Subscribers tab: count + explanation
+   - Status badges with color coding (new=amber, quoted=teal, contacted=sage, closed=grey)
+   - Refresh button with loading spinner
+   - Parallel API fetching (Promise.all of inquiry + consultations + newsletter)
+   - Esc key closes modal
+
+### Polish & Micro-interactions
+- **Room upload UX** — Drag-and-drop with visual feedback, dashed border on dragover, "Drop your room photo here" overlay
+- **Admin stats cards** — Clickable tabs with paint-gradient icon when active
+- **Status badges** — Color-coded with icons (AlertCircle for new, Clock for pending, CheckCircle2 for closed)
+- **Keyboard shortcuts** — Ctrl+Shift+A to toggle admin, Esc to close
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ ColorVisualizer upload: "Upload your room" button visible, file input accepts image, uploaded room replaces preview, "Remove" button clears upload, color overlay still works on uploaded room
+- ✅ AdminDashboard: Ctrl+Shift+A opens modal, shows 3 Inquiries / 1 Booking / 1 Saved Quote / 1 Subscriber, tab switching works, Saved Quotes tab shows parsed breakdown (area, coats, paint, prep, extras, GST, total)
+- ✅ AdminDashboard search filters records by name/email/phone/service
+- ✅ AdminDashboard Esc closes modal
+- ✅ All 4 APIs functional and consumed by admin dashboard
+- ✅ No runtime errors in console
+
+## Unresolved Issues / Risks
+- **File upload in headless browser**: agent-browser's `upload` command required making the hidden input visible first (via eval) — on real browsers the button click triggers the file dialog natively, which works correctly.
+- **Admin dashboard security**: Currently no authentication — anyone with the keyboard shortcut can view records. For production, add NextAuth.js gate (already installed in package.json).
+- **Subscriber list**: Admin shows count only (not individual emails) — the newsletter API returns count, not the full list. Could add a GET endpoint that returns subscriber records if needed.
+- **VLM scroll-transition artifacts**: Still present (expected).
+- **Counter mid-flight values**: Still present (expected animation behavior).
+- **No automated tests**: All verification is manual via agent-browser + VLM.
+
+## Priority Recommendations for Next Phase
+1. **Admin authentication**: Add NextAuth.js gate to the admin dashboard (login required).
+2. **Lazy-load below-fold sections**: Use next/dynamic for sections below the fold to reduce initial JS bundle.
+3. **Multi-language (next-intl)**: Add English/Hindi/Bengali switching.
+4. **Blog detail pages**: Currently all blog links point to #blog — add real blog post routes.
+5. **Gallery video testimonials**: Embed short video clips.
+6. **Performance audit**: Run Lighthouse, optimize images with next/image.
+7. **Navbar mega-menu**: Add a dropdown mega-menu for Services with sub-categories.
+8. **Export admin data**: Add CSV/Excel export buttons in admin dashboard.

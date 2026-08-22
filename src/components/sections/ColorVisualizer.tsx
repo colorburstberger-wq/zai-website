@@ -2,10 +2,11 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Check, Copy, RefreshCw, Lightbulb, Sparkles } from "lucide-react"
+import { Check, Copy, RefreshCw, Lightbulb, Sparkles, Upload, ImageIcon, X, Wand2 } from "lucide-react"
 import { Reveal, SectionHeading, Magnetic } from "@/components/motion/primitives"
 import { Button } from "@/components/ui/button"
 import { VISUALIZER_COLORS, PALETTE_SWATCHES } from "@/lib/data/content"
+import { cn } from "@/lib/utils"
 
 const ROOM_ACCENTS = [
   { name: "Living Room", src: "/images/gallery-living-room.png" },
@@ -19,6 +20,10 @@ export function ColorVisualizer() {
   const [accentWall, setAccentWall] = React.useState(true)
   const [room, setRoom] = React.useState(0)
   const [copied, setCopied] = React.useState(false)
+  const [uploadedRoom, setUploadedRoom] = React.useState<string | null>(null)
+  const [uploadName, setUploadName] = React.useState<string>("")
+  const [dragOver, setDragOver] = React.useState(false)
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
 
   const color = VISUALIZER_COLORS[active]
 
@@ -34,6 +39,37 @@ export function ColorVisualizer() {
     const next = Math.floor(Math.random() * VISUALIZER_COLORS.length)
     setActive(next)
   }
+
+  const handleFile = (file: File) => {
+    if (!file.type.startsWith("image/")) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      setUploadedRoom(reader.result as string)
+      setUploadName(file.name)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const onFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0]
+    if (f) handleFile(f)
+  }
+
+  const onDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setDragOver(false)
+    const f = e.dataTransfer.files?.[0]
+    if (f) handleFile(f)
+  }
+
+  const clearUpload = () => {
+    setUploadedRoom(null)
+    setUploadName("")
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }
+
+  const currentRoomSrc = uploadedRoom ?? ROOM_ACCENTS[room].src
+  const currentRoomName = uploadedRoom ? uploadName || "Your room" : ROOM_ACCENTS[room].name
 
   return (
     <section id="visualizer" className="relative py-20 sm:py-28 overflow-hidden bg-secondary/30">
@@ -51,17 +87,25 @@ export function ColorVisualizer() {
         <div className="mt-12 grid lg:grid-cols-12 gap-6">
           {/* Room preview */}
           <Reveal className="lg:col-span-7" delay={0.1}>
-            <div className="relative rounded-3xl overflow-hidden border-4 border-card shadow-card aspect-[16/10]">
+            <div
+              className={cn(
+                "relative rounded-3xl overflow-hidden border-4 border-card shadow-card aspect-[16/10]",
+                dragOver && "border-primary border-dashed"
+              )}
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={onDrop}
+            >
               <img
-                src={ROOM_ACCENTS[room].src}
-                alt={`${ROOM_ACCENTS[room].name} interior with applied colour`}
+                src={currentRoomSrc}
+                alt={`${currentRoomName} interior with applied colour`}
                 className="absolute inset-0 h-full w-full object-cover"
               />
 
               {/* Color overlay on walls using mix-blend */}
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`${active}-${accentWall}-${room}`}
+                  key={`${active}-${accentWall}-${room}-${uploadedRoom ?? "default"}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: accentWall ? 0.55 : 0.35 }}
                   exit={{ opacity: 0 }}
@@ -74,15 +118,41 @@ export function ColorVisualizer() {
                 />
               </AnimatePresence>
 
+              {/* Drag overlay hint */}
+              <AnimatePresence>
+                {dragOver && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 bg-primary/30 backdrop-blur-sm grid place-items-center"
+                  >
+                    <div className="text-center text-white">
+                      <Upload className="h-10 w-10 mx-auto mb-2" />
+                      <p className="font-display text-lg font-bold">Drop your room photo here</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* Vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
               {/* Top bar */}
               <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-                <span className="rounded-full glass border border-white/20 px-3 py-1 text-[11px] font-medium text-white">
-                  {ROOM_ACCENTS[room].name} Preview
+                <span className="rounded-full glass border border-white/20 px-3 py-1 text-[11px] font-medium text-white max-w-[60%] truncate">
+                  {currentRoomName} Preview
                 </span>
                 <div className="flex items-center gap-1">
+                  {uploadedRoom && (
+                    <button
+                      onClick={clearUpload}
+                      className="rounded-full glass border border-white/20 px-3 py-1 text-[11px] font-medium text-white hover:bg-white/20 transition flex items-center gap-1"
+                    >
+                      <X className="h-3 w-3" />
+                      Remove
+                    </button>
+                  )}
                   <button
                     onClick={() => setAccentWall((v) => !v)}
                     className="rounded-full glass border border-white/20 px-3 py-1 text-[11px] font-medium text-white hover:bg-white/20 transition"
@@ -119,21 +189,45 @@ export function ColorVisualizer() {
               </motion.div>
             </div>
 
-            {/* Room tabs */}
-            <div className="mt-3 flex flex-wrap gap-2">
+            {/* Room tabs + upload */}
+            <div className="mt-3 flex flex-wrap items-center gap-2">
               {ROOM_ACCENTS.map((r, i) => (
                 <button
                   key={r.name}
-                  onClick={() => setRoom(i)}
+                  onClick={() => { setRoom(i); setUploadedRoom(null) }}
+                  disabled={!!uploadedRoom}
                   className={`rounded-full px-3 py-1.5 text-xs font-medium border transition ${
-                    room === i
+                    room === i && !uploadedRoom
                       ? "bg-primary text-primary-foreground border-primary"
-                      : "bg-card border-border/60 text-muted-foreground hover:text-foreground"
+                      : "bg-card border-border/60 text-muted-foreground hover:text-foreground disabled:opacity-50"
                   }`}
                 >
                   {r.name}
                 </button>
               ))}
+              <div className="h-5 w-px bg-border mx-1" />
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={onFileInput}
+                className="hidden"
+              />
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className={cn(
+                  "rounded-full px-3 py-1.5 text-xs font-medium border transition flex items-center gap-1.5",
+                  uploadedRoom
+                    ? "bg-paint-sage text-white border-paint-sage"
+                    : "bg-card border-dashed border-primary/50 text-primary hover:bg-primary/5"
+                )}
+              >
+                {uploadedRoom ? (
+                  <><ImageIcon className="h-3 w-3" /> {uploadName.slice(0, 12)}{uploadName.length > 12 ? "..." : ""}</>
+                ) : (
+                  <><Upload className="h-3 w-3" /> Upload your room</>
+                )}
+              </button>
             </div>
           </Reveal>
 
