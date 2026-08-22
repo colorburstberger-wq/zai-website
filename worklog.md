@@ -999,3 +999,72 @@ Task: Integrate user's real uploaded logo (logo (1).svg) into the website, repla
 2. **Get real email**: Update SHOP.email with the actual email.
 3. **Light variant logo**: For dark mode navbar and footer, consider creating a light-background version of the logo for better contrast.
 4. **PNG favicon fallback**: Add a 32x32 PNG favicon for older browser support.
+
+---
+Task ID: V12-CRON (Scheduled Review & Iteration)
+Agent: main-orchestrator (web-dev-review)
+Task: Re-create recurring cron job + run manual QA cycle, fix visual defects.
+
+## Current Project Status
+- Website is fully corrected for the real business (Berger Urban Exclusive Paints Store, Gorakhpur).
+- Real logo integrated across Navbar, Footer, PageLoader, favicon.
+- Previous recurring cron job had expired — re-created.
+
+## Goals / Completed Modifications
+
+### 1. Recurring Cron Job Re-created
+- **Job ID**: 333144
+- **Schedule**: Every 15 minutes (fixed_rate: 900s), timezone Asia/Kolkata
+- **Payload kind**: webDevReview
+- **Priority**: 10 (high)
+- **Task description**: Full QA + iteration cycle with project context (Berger Urban Exclusive, Gorakhpur, real logo, 4 APIs)
+
+### 2. QA Findings (via agent-browser + VLM)
+- **Navbar crowding**: 10 nav links + logo + CTAs caused text truncation/clipping of "Berger Urban Exclusive" brand text and nav link labels ("About", "Gallery", "Reviews" were clipped)
+- **Hero description contrast**: Body text below headline used `text-muted-foreground` which was marginal against busy background (rated ~6/10)
+- **Product swatch header**: Brand/category text used `text-white/60` and `text-white/80` — slightly low contrast on lighter swatches
+- No runtime errors, lint clean
+
+### 3. Fixes Applied (3 files)
+
+**`src/lib/data/content.ts`** — NAV_LINKS reduced from 10 to 8 links:
+- Removed: "Home" (logo links to #home already), "Quiz" (accessible via mega-menu), "Estimate" (renamed to "Calculator")
+- Renamed: "Estimate" → "Calculator" (clearer label)
+- Final 8 links: About, Services, Calculator, Colours, Offers, Gallery, Reviews, Contact
+
+**`src/components/sections/Navbar.tsx`** — Navbar spacing fixes:
+- Brand text: Added `whitespace-nowrap` to prevent wrapping/truncation
+- Brand text responsive sizing: `text-sm sm:text-base` (smaller on narrow screens)
+- Subtitle responsive sizing: `text-[9px] sm:text-[10px]` with tighter tracking `0.15em`
+- Nav link padding reduced: `px-3` → `px-2.5` (more compact)
+- Nav gap reduced: `gap-1` → `gap-0.5` (tighter spacing)
+
+**`src/components/sections/Hero.tsx`** — Hero description contrast improved:
+- Changed from `text-muted-foreground` to `text-foreground/80 font-medium` (darker + bolder)
+- Contrast rating improved from ~6/10 to 9/10 (VLM confirmed)
+
+**`src/components/sections/Products.tsx`** — Product swatch header contrast improved:
+- Brand text: `text-white/80` → `text-white/90 font-semibold` (bolder + brighter)
+- Category text: `text-white/60` → `text-white/80` (brighter)
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ Navbar: VLM confirmed "logo text 'Berger Urban Exclusive' is fully visible without truncation" and "all nav links visible without clipping"
+- ✅ Hero description: VLM rated 9/10 readability (up from ~6/10)
+- ✅ Product swatch header: improved contrast with brighter, bolder text
+- ✅ No runtime errors in console
+- ✅ Page title correct: "Berger Urban Exclusive Paints Store, Gorakhpur | Authorised Berger Paints Dealer"
+
+## Unresolved Issues / Risks
+- **Phone/email still placeholder**: SHOP.phone = +91 94150 00000, SHOP.email = bergerurbanexclusive.gkp@gmail.com — user needs to provide real values
+- **Team portrait filenames**: Still use old names (team-anirban.png etc.) but display new names
+- **Logo dark background**: Works well on light backgrounds; on dark footer it has a white/20 border for separation
+- **VLM scroll-transition artifacts**: Some VLM observations are mid-scroll state, not actual bugs
+
+## Priority Recommendations for Next Phase
+1. **Get real phone number**: Update SHOP.phone with the actual number
+2. **Get real email**: Update SHOP.email with the actual email
+3. **Regenerate team portraits**: Match new team member names
+4. **Light variant logo**: For dark mode navbar, consider a light-background version
+5. **Add more Berger product details**: Specific Berger Color Bank shades, Berger XP range
+6. **Google Maps precise pin**: Use exact store coordinates instead of city center

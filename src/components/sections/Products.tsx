@@ -72,10 +72,10 @@ export function Products() {
                   </Badge>
                 </div>
                 <div className="relative">
-                  <p className="text-[11px] uppercase tracking-widest text-white/80">
+                  <p className="text-[11px] uppercase tracking-widest text-white/90 font-semibold">
                     {p.brand}
                   </p>
-                  <p className="text-[11px] uppercase tracking-widest text-white/60">
+                  <p className="text-[11px] uppercase tracking-widest text-white/80">
                     {p.category}
                   </p>
                 </div>

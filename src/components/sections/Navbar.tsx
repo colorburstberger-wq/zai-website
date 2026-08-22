@@ -99,17 +99,17 @@ export function Navbar() {
               </div>
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-display text-base font-bold tracking-tight text-foreground">
+              <span className="font-display text-sm sm:text-base font-bold tracking-tight text-foreground whitespace-nowrap">
                 Berger <span className="text-gradient-warm">Urban Exclusive</span>
               </span>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] text-muted-foreground whitespace-nowrap">
                 Paints Store · Gorakhpur
               </span>
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5">
             {NAV_LINKS.map((link, i) => {
               // The Services link is a mega-menu trigger
               if (link.label === "Services") {
@@ -125,7 +125,7 @@ export function Navbar() {
                   >
                     <button
                       onClick={() => setMegaOpen((o) => !o)}
-                      className="relative px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group flex items-center gap-1"
+                      className="relative px-2.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group flex items-center gap-1"
                     >
                       {link.label}
                       <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", megaOpen && "rotate-180")} />
@@ -143,7 +143,7 @@ export function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className="relative px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+                    className="relative px-2.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
                   >
                     {link.label}
                     <span className="absolute inset-x-3 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />

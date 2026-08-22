@@ -383,11 +383,9 @@ export const WHY_US = [
 ]
 
 export const NAV_LINKS = [
-  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Quiz", href: "#quiz" },
-  { label: "Estimate", href: "#calculator" },
+  { label: "Calculator", href: "#calculator" },
   { label: "Colours", href: "#visualizer" },
   { label: "Offers", href: "#offers" },
   { label: "Gallery", href: "#gallery" },
