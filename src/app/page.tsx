@@ -1,5 +1,6 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/sections/Navbar"
 import { Hero } from "@/components/sections/Hero"
 import { BrandMarquee } from "@/components/sections/BrandMarquee"
@@ -11,20 +12,25 @@ import { ColorVisualizer } from "@/components/sections/ColorVisualizer"
 import { Offers } from "@/components/sections/Offers"
 import { Products } from "@/components/sections/Products"
 import { Gallery } from "@/components/sections/Gallery"
+import { BeforeAfter } from "@/components/sections/BeforeAfter"
 import { ProcessWhyUs } from "@/components/sections/ProcessWhyUs"
+import { ComparisonTable } from "@/components/sections/ComparisonTable"
 import { Team } from "@/components/sections/Team"
 import { Awards } from "@/components/sections/Awards"
 import { ServiceArea } from "@/components/sections/ServiceArea"
 import { Testimonials } from "@/components/sections/Testimonials"
 import { BlogTips } from "@/components/sections/BlogTips"
 import { FAQ } from "@/components/sections/FAQ"
+import { BookingCalendar } from "@/components/sections/BookingCalendar"
 import { Contact } from "@/components/sections/Contact"
 import { Footer } from "@/components/sections/Footer"
 import { ScrollToTop } from "@/components/sections/ScrollToTop"
+import { FloatingQuickActions, ScrollProgressBar } from "@/components/sections/FloatingQuickActions"
 
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col bg-background overflow-x-hidden">
+      <ScrollProgressBar />
       <Navbar />
       <main className="flex-1">
         <Hero />
@@ -37,17 +43,21 @@ export default function Home() {
         <Offers />
         <Products />
         <Gallery />
+        <BeforeAfter />
         <ProcessWhyUs />
+        <ComparisonTable />
         <Team />
         <Awards />
         <ServiceArea />
         <Testimonials />
         <BlogTips />
         <FAQ />
+        <BookingCalendar />
         <Contact />
       </main>
       <Footer />
       <ScrollToTop />
+      <FloatingQuickActions />
     </div>
   )
 }

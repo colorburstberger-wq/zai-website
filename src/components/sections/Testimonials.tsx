@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react"
-import { Reveal, SectionHeading, Counter } from "@/components/motion/primitives"
+import { Reveal, SectionHeading, Counter, TiltCard } from "@/components/motion/primitives"
 import { TESTIMONIALS } from "@/lib/data/content"
 
 export function Testimonials() {
@@ -82,21 +82,25 @@ export function Testimonials() {
           {/* Active testimonial */}
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
-              <div className="relative rounded-3xl bg-card border border-border/60 p-6 sm:p-8 shadow-card min-h-[18rem] flex flex-col justify-between">
-                <div>
-                  <Quote className="h-8 w-8 text-paint-saffron mb-4" />
-                  <AnimatePresence mode="wait" custom={dir}>
-                    <motion.blockquote
-                      key={idx}
-                      custom={dir}
-                      initial={{ opacity: 0, x: dir * 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: dir * -30 }}
-                      transition={{ duration: 0.4 }}
-                      className="font-display text-xl sm:text-2xl leading-snug text-foreground/90 text-pretty"
-                    >
-                      &ldquo;{t.text}&rdquo;
-                    </motion.blockquote>
+              <TiltCard max={8} className="rounded-3xl">
+                <div className="relative rounded-3xl bg-card border border-border/60 p-6 sm:p-8 shadow-card min-h-[18rem] flex flex-col justify-between overflow-hidden">
+                  {/* Decorative big quote watermark */}
+                  <Quote className="absolute -top-4 -right-4 h-32 w-32 text-primary/5" strokeWidth={1} />
+
+                  <div className="relative">
+                    <Quote className="h-8 w-8 text-paint-saffron mb-4" />
+                    <AnimatePresence mode="wait" custom={dir}>
+                      <motion.blockquote
+                        key={idx}
+                        custom={dir}
+                        initial={{ opacity: 0, x: dir * 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: dir * -30 }}
+                        transition={{ duration: 0.4 }}
+                        className="font-display text-xl sm:text-2xl leading-snug text-foreground/90 text-pretty"
+                      >
+                        &ldquo;{t.text}&rdquo;
+                      </motion.blockquote>
                   </AnimatePresence>
                 </div>
 
@@ -120,7 +124,8 @@ export function Testimonials() {
                     ))}
                   </div>
                 </div>
-              </div>
+                </div>
+              </TiltCard>
             </Reveal>
 
             {/* Controls */}

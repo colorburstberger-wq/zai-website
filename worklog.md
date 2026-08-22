@@ -231,3 +231,113 @@ Task: Periodic QA + add new features, polish styling, dark mode, and more sectio
 6. **Awards badges as SVG**: Replace lucide icons in Awards section with custom SVG medal/badge designs for more premium feel.
 7. **Multi-language support**: Add next-intl for English/Hindi/Bengali switching (already installed).
 8. **Performance**: Consider lazy-loading below-the-fold sections with next/dynamic to reduce initial bundle.
+
+---
+Task ID: V3-IMG
+Agent: image-generation
+Task: Generate paired Before/After comparison images (Living Room + Exterior) for the interactive before/after image comparison slider to be added to the Gallery section of the Chroma House website.
+
+Work Log:
+- Read existing worklog.md to confirm project context (Chroma House brand, warm cream/charcoal/terracotta/saffron palette, prior 22-image generations in Tasks 4 and V2-IMG).
+- Verified `/home/z/my-project/public/images/` directory already exists with 22 prior images.
+- Confirmed `z-ai` CLI is available at `/usr/local/bin/z-ai` and 1344x768 is in the supported sizes list (also API-compliant as 1344 and 768 are both multiples of 32).
+- Generated 4 paired before/after images sequentially via `z-ai image -p <prompt> -o <path> -s 1344x768`. All 4 succeeded on the FIRST attempt — no retries needed.
+- Prompts were crafted as matched pairs sharing the same room/space description (e.g. "empty Indian living room", "two-story Indian house exterior") so the slider comparison reads correctly: dull/faded/cool tones in BEFORE vs vibrant/terracotta/warm tones in AFTER, same composition intent.
+- Verified each generated file exists on disk with file size >20KB (smallest: after-living.png at ~111KB; largest: before-exterior.png at ~168KB).
+
+Stage Summary:
+- 4/4 images successfully generated in `/home/z/my-project/public/images/`:
+  - before-living.png    (1344x768, ~111KB)  — dull peeling cream walls, dim cool light, scuff marks
+  - after-living.png     (1344x768, ~111KB)  — fresh terracotta accent + cream emulsion, warm bright light
+  - before-exterior.png (1344x768, ~168KB)  — weathered beige paint, cracks, algae patches, overcast
+  - after-exterior.png   (1344x768, ~140KB)  — fresh cream + deep terracotta, flawless finish, golden hour
+- Failures: 0. All images generated on first attempt. No retries, no size fallbacks needed.
+- Total image count in `/public/images/` is now 26 (22 from prior runs + 4 from this run).
+- Next steps: Frontend Gallery component can now build the interactive before/after comparison slider using these paired image paths via `/images/before-living.png` & `/images/after-living.png` (interior pair) and `/images/before-exterior.png` & `/images/after-exterior.png` (exterior pair). All four images share the same 1344x768 (7:4 landscape) aspect ratio — ideal for a full-width slider with consistent crop. Recommended to use absolute-positioned stacked images inside a relative container with a draggable handle, leveraging Framer Motion drag for the slider thumb.
+
+---
+Task ID: V3 (cron review round 3)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + add interactive Before/After slider, booking calendar, comparison table, FAB, scroll progress bar, 3D tilt testimonials, and polish.
+
+## Current Project Status (start of round)
+- Site had 20 sections, 3 APIs, 26 images, dark/light mode toggle, working forms.
+- All previously verified features stable: calculator, offers, color visualizer, gallery, contact form.
+- No known bugs from round 2; counter mid-flight animation in screenshots is expected behavior.
+
+## Goals / Completed Modifications
+
+### QA Findings (via agent-browser + VLM)
+- Hero phone number card had low contrast (glass background) — FIXED with `bg-black/55 backdrop-blur-md` + drop-shadow.
+- Console warning about scroll container position is cosmetic (framer-motion); no runtime errors.
+- No layout breaks, no broken images, no test failures.
+
+### New Sections & Components (5 new, ~1500 lines)
+1. **BeforeAfter** (`After Gallery`) — Interactive before/after image comparison slider:
+   - Pointer-event-driven slider with `setPointerCapture` for smooth drag
+   - Two pairs: Living Room (interior) + Villa Exterior
+   - Clipped "before" image with computed width `(100/pos)*100%` to maintain aspect ratio
+   - Draggable handle with arrow icons + animated "Drag to compare" hint
+   - Info panel with project details + paint brand + "Book free visit" CTA
+   - Generated 4 paired before/after images (before-living, after-living, before-exterior, after-exterior)
+2. **ComparisonTable** — "Chroma House vs Local painter vs DIY":
+   - 12 comparison rows with check/X/"maybe" cells
+   - Chroma column highlighted with paint-gradient top stroke + "Recommended" badge
+   - Hover row highlighting, sticky first column, horizontal scroll on mobile
+   - Legend with color key
+3. **BookingCalendar** (`#booking`) — Full consultation booking system:
+   - Custom calendar grid with month navigation (max 4 months ahead)
+   - Past dates disabled, today marked with dot/ring
+   - 8 time slots (9:30 AM – 5:30 PM) revealed after date selection
+   - Contact form (name, phone, email, room type, address)
+   - Live "Selected: date + slot" chip summary
+   - Submit → POST /api/consultations → DB insert → success animation
+   - "Book another visit" reset
+4. **FloatingQuickActions** — FAB cluster bottom-right:
+   - Main sparkles button with double pulse-ring animation
+   - Expands to 4 actions: Call, WhatsApp (green), Book visit, Estimate cost
+   - Each with label chip + colored circular button
+   - AnimatePresence enter/exit with stagger
+5. **ScrollProgressBar** — Slim paint-gradient bar at top showing scroll progress
+   - Uses useScroll + useSpring for smooth tracking
+   - z-[60] above navbar
+
+### Polish & Micro-interactions
+- **TiltCard primitive** added to motion library — 3D perspective tilt with glare effect
+- **Testimonials** card wrapped in TiltCard (max 8° tilt) with decorative big quote watermark
+- **Hero phone card** restyled with stronger dark backdrop + drop-shadow for readability
+- **ScrollToTop** moved to bottom-left to avoid FAB overlap (bottom-right)
+- **Navbar** updated with "Book" nav link for #booking section
+
+### New Images Generated (4 paired before/after)
+- before-living.png / after-living.png (1344x768) — Interior transformation
+- before-exterior.png / after-exterior.png (1344x768) — Exterior restoration
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ BeforeAfter slider drag verified: dragging right reveals more AFTER image
+- ✅ Comparison table renders with Chroma column highlighted + checkmarks/X marks
+- ✅ Booking calendar: date select → time slots appear → form fill → "Confirm booking" enabled → submit → "Booking confirmed!" animation → DB insert verified via GET /api/consultations
+- ✅ FAB expands on click revealing 4 quick actions (Call, WhatsApp, Book, Estimate)
+- ✅ Scroll progress bar visible at top when scrolling
+- ✅ Testimonials 3D tilt works with glare effect
+- ✅ Mobile (390px): BeforeAfter, booking calendar, comparison table all stack vertically and remain usable
+- ✅ All 4 APIs functional: /api/inquiry, /api/newsletter, /api/consultations (POST + GET), existing /api route
+- ✅ 21 sections, 20 H2 headings on the page
+- ✅ No runtime errors in console
+
+## Unresolved Issues / Risks
+- **VLM misreading scroll-transition screenshots**: When taking screenshots mid-scroll, the VLM sometimes sees two sections overlapping (e.g. navbar text "overlapping" section content). This is a screenshot timing artifact, not a real layout bug — verified by direct DOM evaluation.
+- **Counter mid-flight values**: Still present (expected animation behavior).
+- **"1 Issue" red badge**: Next.js dev-mode cross-origin preview warning — not a production issue.
+- **No automated tests**: All verification is manual via agent-browser + VLM.
+
+## Priority Recommendations for Next Phase
+1. **Service area search**: Add a postcode/area search input to ServiceArea that filters the list and shows "We serve your area!" confirmation.
+2. **Blog detail pages**: Currently all blog links point to #blog — add real blog post routes with full content.
+3. **Save quote from calculator**: Let users email their calculator estimate to themselves (new API + Subscriber link).
+4. **Awards SVG badges**: Replace lucide icons in Awards with custom SVG medal/badge designs.
+5. **Multi-language (next-intl)**: Add English/Hindi/Bengali switching (already installed).
+6. **Lazy-load below-fold sections**: Use next/dynamic for sections below the fold to reduce initial JS bundle.
+7. **Custom cursor**: Add a paint-roller cursor effect that leaves a subtle trail on hover.
+8. **Gallery video testimonials**: Embed short video clips in the Testimonials section.

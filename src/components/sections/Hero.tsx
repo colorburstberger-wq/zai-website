@@ -265,13 +265,16 @@ export function Hero() {
                 />
                 <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 <div className="absolute bottom-5 inset-x-5">
-                  <div className="glass rounded-2xl p-4 flex items-center gap-3 border border-white/20">
-                    <div className="h-12 w-12 rounded-xl paint-gradient grid place-items-center shrink-0">
+                  <div className="rounded-2xl p-4 flex items-center gap-3 border border-white/20 bg-black/55 backdrop-blur-md">
+                    <div className="h-12 w-12 rounded-xl paint-gradient grid place-items-center shrink-0 shadow-lg">
                       <Phone className="h-5 w-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs text-white/80">Talk to a colour expert</p>
-                      <a href={`tel:${SHOP.phone.replace(/\s/g, "")}`} className="font-display text-lg font-bold text-white hover:text-paint-saffron transition-colors">
+                      <p className="text-xs text-white/90 font-medium">Talk to a colour expert</p>
+                      <a
+                        href={`tel:${SHOP.phone.replace(/\s/g, "")}`}
+                        className="font-display text-lg font-bold text-white hover:text-paint-saffron transition-colors drop-shadow"
+                      >
                         {SHOP.phone}
                       </a>
                     </div>

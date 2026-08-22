@@ -24,7 +24,7 @@ export function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.6, y: 20 }}
           transition={{ type: "spring", stiffness: 200, damping: 18 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-50 h-12 w-12 grid place-items-center"
+          className="fixed bottom-6 left-6 z-50 h-12 w-12 grid place-items-center"
           aria-label="Scroll to top"
         >
           <Magnetic strength={0.2}>

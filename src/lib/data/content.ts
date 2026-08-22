@@ -383,5 +383,6 @@ export const NAV_LINKS = [
   { label: "Offers", href: "#offers" },
   { label: "Gallery", href: "#gallery" },
   { label: "Reviews", href: "#testimonials" },
+  { label: "Book", href: "#booking" },
   { label: "Contact", href: "#contact" },
 ]
