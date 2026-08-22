@@ -587,3 +587,85 @@ Task: Periodic QA + add room photo upload to visualizer, admin dashboard with ke
 6. **Performance audit**: Run Lighthouse, optimize images with next/image.
 7. **Navbar mega-menu**: Add a dropdown mega-menu for Services with sub-categories.
 8. **Export admin data**: Add CSV/Excel export buttons in admin dashboard.
+
+---
+Task ID: V7 (cron review round 7)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + add navbar mega-menu, click splash effect, hero mouse parallax.
+
+## Current Project Status (start of round)
+- Site had 23 sections + 4 overlay components (PageLoader, NewsletterPopup, SaveQuote modal, AdminDashboard), 4 APIs, 26 images.
+- All previously verified features stable: paint cursor, palette explorer, service area search, SVG award badges, press strip, structured data, hero gradient mesh, page loader, exit-intent popup, save-quote, room upload, admin dashboard.
+- No runtime errors; VLM scroll-transition artifacts are expected.
+
+## Goals / Completed Modifications
+
+### QA Findings (via agent-browser + VLM)
+- No runtime errors, no broken layouts, lint clean.
+- Console warning about scroll container position is cosmetic (framer-motion).
+- All prior features remain stable.
+
+### New Sections & Components (3 new, ~700 lines)
+1. **Navbar mega-menu** — Services dropdown with 3 columns:
+   - **Painting** column: Interior Painting, Exterior Painting (with Brush/Building2 icons)
+   - **Specialty** column: Texture & Designer, Waterproofing, Wood & Metal Polish (with Wand2/Droplets/Frame icons)
+   - **Tools & extras** column: Cost calculator, Colour visualizer, Book a free visit, Before & after (with Sparkle/Palette/ArrowRight/Sparkles icons)
+   - Hover-triggered with 180ms close delay (prevents accidental close)
+   - Each item: paint-gradient icon + title + description
+   - Staggered entrance animation per column/item
+   - Closes on scroll, on item click, or on mouse leave
+   - ChevronDown icon rotates 180° when open
+   - Mobile menu unchanged (regular link list)
+
+2. **ClickSplash** — Paint splash effect on every click:
+   - Listens for window click events (desktop only via pointer:fine matchMedia)
+   - Renders a random-colored SVG paint splash blob at click position
+   - 6 rotating colors (coral, saffron, mustard, sage, rose, teal)
+   - Each splash: organic blob shape + inner circle + 4 small droplets
+   - Scale 0→1.6 + opacity 0.9→0 + rotation over 0.8s
+   - Max 12 simultaneous splashes (older ones removed)
+   - Auto-removes after 900ms
+   - Skips clicks on form inputs (input, textarea, select)
+   - Pointer-events-none so it doesn't block interactions
+
+3. **Hero mouse parallax** — Floating swatches respond to mouse movement:
+   - Added onMouseMove handler to Hero section
+   - Tracks mouse position (-0.5 to 0.5 relative to section)
+   - useSpring for smooth movement (stiffness 80, damping 20)
+   - Each FloatingSwatch has a "depth" property (0.03 to 0.08)
+   - Deeper swatches move more (stronger parallax effect)
+   - Extracted FloatingSwatch as separate component to fix React hooks rules (useTransform called in component, not in callback)
+
+### Polish & Micro-interactions
+- **Mega-menu icons** — paint-gradient circular icons that scale on hover
+- **ClickSplash organic blob** — Hand-crafted SVG path with inner circle + 4 corner droplets for natural paint splash look
+- **Hero parallax depth** — Different swatches have different depths creating a 3D layered effect
+- **FloatingSwatch component** — Properly separated to respect React hooks rules
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings) — fixed React hooks violation by extracting FloatingSwatch component
+- ✅ Navbar mega-menu: hovering "Services" opens dropdown with 3 columns (Painting, Specialty, Tools & extras) — VLM confirmed
+- ✅ ClickSplash: clicking on page produces colorful paint splash at click point — multiple splashes visible
+- ✅ Hero mouse parallax: moving mouse causes floating colored circles to shift position — VLM confirmed movement
+- ✅ All previously verified features remain stable
+- ✅ No runtime errors in console
+- ✅ 23 sections + 5 overlay components (PageLoader, NewsletterPopup, SaveQuote modal, AdminDashboard, ClickSplash)
+
+## Unresolved Issues / Risks
+- **ClickSplash on mobile**: Touch devices excluded via matchMedia pointer:fine — splashes only appear on desktop with mouse.
+- **Hero parallax performance**: useSpring + useTransform on 6 swatches is lightweight but could be optimized further if needed.
+- **Mega-menu on touch devices**: Hover-triggered mega-menu won't work on touch — mobile uses the standard hamburger menu instead (already handled).
+- **Admin dashboard security**: Still no authentication — anyone with Ctrl+Shift+A can view records.
+- **VLM scroll-transition artifacts**: Still present (expected).
+- **Counter mid-flight values**: Still present (expected animation behavior).
+- **No automated tests**: All verification is manual via agent-browser + VLM.
+
+## Priority Recommendations for Next Phase
+1. **Admin authentication**: Add NextAuth.js gate to the admin dashboard.
+2. **Lazy-load below-fold sections**: Use next/dynamic for sections below the fold.
+3. **Multi-language (next-intl)**: Add English/Hindi/Bengali switching.
+4. **Blog detail pages**: Add real blog post routes with full content.
+5. **Gallery video testimonials**: Embed short video clips.
+6. **Performance audit**: Run Lighthouse, optimize images with next/image.
+7. **Export admin data**: Add CSV/Excel export buttons in admin dashboard.
+8. **3D flip stat cards**: Add cards that flip on hover to reveal additional info.

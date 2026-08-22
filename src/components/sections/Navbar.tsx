@@ -3,21 +3,69 @@
 import * as React from "react"
 import Link from "next/link"
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion"
-import { Menu, X, Phone, Palette, Sparkles } from "lucide-react"
+import {
+  Menu, X, Phone, Palette, Sparkles, ChevronDown, Brush, Building2,
+  Droplets, Frame, Sparkle, Wand2, ArrowRight,
+} from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { NAV_LINKS, SHOP } from "@/lib/data/content"
+import { NAV_LINKS, SHOP, SERVICES } from "@/lib/data/content"
 import { Magnetic } from "@/components/motion/primitives"
 import { ThemeToggle } from "@/components/ThemeToggle"
+
+const MEGA_MENU = {
+  title: "Services",
+  href: "#services",
+  columns: [
+    {
+      label: "Painting",
+      items: SERVICES.filter((s) => ["interior", "exterior"].includes(s.id)).map((s) => ({
+        title: s.title,
+        desc: s.starting,
+        href: "#services",
+        icon: s.id === "interior" ? Brush : Building2,
+      })),
+    },
+    {
+      label: "Specialty",
+      items: SERVICES.filter((s) => ["texture", "waterproofing", "wood"].includes(s.id)).map((s) => ({
+        title: s.title,
+        desc: s.starting,
+        href: "#services",
+        icon: s.id === "texture" ? Wand2 : s.id === "waterproofing" ? Droplets : Frame,
+      })),
+    },
+    {
+      label: "Tools & extras",
+      items: [
+        { title: "Cost calculator", desc: "Instant estimate", href: "#calculator", icon: Sparkle },
+        { title: "Colour visualizer", desc: "Try paint on a room", href: "#visualizer", icon: Palette },
+        { title: "Book a free visit", desc: "30-sec scheduling", href: "#booking", icon: ArrowRight },
+        { title: "Before & after", desc: "See transformations", href: "#gallery", icon: Sparkles },
+      ],
+    },
+  ],
+}
 
 export function Navbar() {
   const [open, setOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
+  const [megaOpen, setMegaOpen] = React.useState(false)
+  const megaCloseTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, "change", (v) => {
     setScrolled(v > 30)
+    if (v > 30) setMegaOpen(false)
   })
+
+  const onMegaEnter = () => {
+    if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current)
+    setMegaOpen(true)
+  }
+  const onMegaLeave = () => {
+    megaCloseTimer.current = setTimeout(() => setMegaOpen(false), 180)
+  }
 
   return (
     <motion.header
@@ -59,22 +107,47 @@ export function Navbar() {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map((link, i) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.04 }}
-              >
-                <Link
-                  href={link.href}
-                  className="relative px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+            {NAV_LINKS.map((link, i) => {
+              // The Services link is a mega-menu trigger
+              if (link.label === "Services") {
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.04 }}
+                    onMouseEnter={onMegaEnter}
+                    onMouseLeave={onMegaLeave}
+                    className="relative"
+                  >
+                    <button
+                      onClick={() => setMegaOpen((o) => !o)}
+                      className="relative px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group flex items-center gap-1"
+                    >
+                      {link.label}
+                      <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", megaOpen && "rotate-180")} />
+                      <span className="absolute inset-x-3 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
+                    </button>
+                  </motion.div>
+                )
+              }
+              return (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.04 }}
                 >
-                  {link.label}
-                  <span className="absolute inset-x-3 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    href={link.href}
+                    className="relative px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+                  >
+                    {link.label}
+                    <span className="absolute inset-x-3 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
+                  </Link>
+                </motion.div>
+              )
+            })}
           </nav>
 
           {/* CTA */}
@@ -109,6 +182,57 @@ export function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* Mega menu */}
+        <AnimatePresence>
+          {megaOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, y: -10, height: 0 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              onMouseEnter={onMegaEnter}
+              onMouseLeave={onMegaLeave}
+              className="hidden lg:block overflow-hidden"
+            >
+              <div className="mt-2 rounded-3xl glass border border-border/60 shadow-card p-5 grid grid-cols-3 gap-6">
+                {MEGA_MENU.columns.map((col, ci) => (
+                  <div key={col.label}>
+                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold mb-2 px-2">
+                      {col.label}
+                    </p>
+                    <div className="space-y-1">
+                      {col.items.map((item, i) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: ci * 0.05 + i * 0.03 }}
+                        >
+                          <Link
+                            href={item.href}
+                            onClick={() => setMegaOpen(false)}
+                            className="group flex items-start gap-3 rounded-xl p-2 hover:bg-secondary/60 transition-colors"
+                          >
+                            <div className="h-8 w-8 rounded-lg paint-gradient grid place-items-center shrink-0 group-hover:scale-110 transition-transform">
+                              <item.icon className="h-4 w-4 text-white" />
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold group-hover:text-primary transition-colors">
+                                {item.title}
+                              </p>
+                              <p className="text-[11px] text-muted-foreground truncate">{item.desc}</p>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Mobile menu */}

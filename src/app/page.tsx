@@ -28,6 +28,7 @@ import { Footer } from "@/components/sections/Footer"
 import { ScrollToTop } from "@/components/sections/ScrollToTop"
 import { FloatingQuickActions, ScrollProgressBar } from "@/components/sections/FloatingQuickActions"
 import { PaintCursor } from "@/components/sections/PaintCursor"
+import { ClickSplash } from "@/components/sections/ClickSplash"
 import { PageLoader } from "@/components/sections/PageLoader"
 import { NewsletterPopup } from "@/components/sections/NewsletterPopup"
 import { AdminDashboard } from "@/components/sections/AdminDashboard"
@@ -38,6 +39,7 @@ export default function Home() {
       <PageLoader />
       <ScrollProgressBar />
       <PaintCursor />
+      <ClickSplash />
       <NewsletterPopup />
       <AdminDashboard />
       <Navbar />

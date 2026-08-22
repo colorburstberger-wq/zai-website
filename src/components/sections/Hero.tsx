@@ -2,19 +2,19 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
 import { ArrowRight, Play, Star, Phone, Sparkles, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SHOP, PARTNERS } from "@/lib/data/content"
 import { Magnetic } from "@/components/motion/primitives"
 
 const FLOATING_SWATCHES = [
-  { color: "var(--paint-coral)", size: 64, x: "8%", y: "22%", delay: 0, shape: "blob1" },
-  { color: "var(--paint-saffron)", size: 48, x: "82%", y: "18%", delay: 0.6, shape: "blob2" },
-  { color: "var(--paint-sage)", size: 54, x: "16%", y: "70%", delay: 1.1, shape: "blob3" },
-  { color: "var(--paint-rose)", size: 40, x: "88%", y: "64%", delay: 0.3, shape: "blob4" },
-  { color: "var(--paint-teal)", size: 36, x: "70%", y: "82%", delay: 0.9, shape: "blob1" },
-  { color: "var(--paint-mustard)", size: 44, x: "30%", y: "10%", delay: 1.4, shape: "blob2" },
+  { color: "var(--paint-coral)", size: 64, x: "8%", y: "22%", delay: 0, shape: "blob1", depth: 0.04 },
+  { color: "var(--paint-saffron)", size: 48, x: "82%", y: "18%", delay: 0.6, shape: "blob2", depth: 0.06 },
+  { color: "var(--paint-sage)", size: 54, x: "16%", y: "70%", delay: 1.1, shape: "blob3", depth: 0.03 },
+  { color: "var(--paint-rose)", size: 40, x: "88%", y: "64%", delay: 0.3, shape: "blob4", depth: 0.07 },
+  { color: "var(--paint-teal)", size: 36, x: "70%", y: "82%", delay: 0.9, shape: "blob1", depth: 0.05 },
+  { color: "var(--paint-mustard)", size: 44, x: "30%", y: "10%", delay: 1.4, shape: "blob2", depth: 0.08 },
 ]
 
 export function Hero() {
@@ -28,10 +28,27 @@ export function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
 
+  // Mouse parallax
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const smx = useSpring(mx, { stiffness: 80, damping: 20 })
+  const smy = useSpring(my, { stiffness: 80, damping: 20 })
+
+  const onMouseMove = React.useCallback((e: React.MouseEvent) => {
+    const el = ref.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const cx = (e.clientX - r.left) / r.width - 0.5 // -0.5 to 0.5
+    const cy = (e.clientY - r.top) / r.height - 0.5
+    mx.set(cx)
+    my.set(cy)
+  }, [mx, my])
+
   return (
     <section
       ref={ref}
       id="home"
+      onMouseMove={onMouseMove}
       className="relative min-h-[100svh] flex items-center overflow-hidden"
     >
       {/* Background image with parallax */}
@@ -63,47 +80,9 @@ export function Hero() {
       {/* Grid overlay */}
       <div className="absolute inset-0 z-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
 
-      {/* Floating color swatches */}
+      {/* Floating color swatches with mouse parallax */}
       {FLOATING_SWATCHES.map((s, i) => (
-        <motion.div
-          key={i}
-          className="absolute z-[1] pointer-events-none hidden sm:block"
-          style={{
-            left: s.x,
-            top: s.y,
-            width: s.size,
-            height: s.size,
-          }}
-          initial={{ opacity: 0, scale: 0.4, rotate: -20 }}
-          animate={{
-            opacity: [0, 1, 1, 0.8],
-            scale: [0.4, 1.1, 1, 1.05],
-            rotate: [-20, 5, -5, 10],
-            y: [0, -16, 8, -4],
-          }}
-          transition={{
-            duration: 8,
-            delay: s.delay,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-        >
-          <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl">
-            <path
-              d={
-                s.shape === "blob1"
-                  ? "M 50 8 C 70 8 92 28 92 50 C 92 72 72 92 50 92 C 28 92 8 72 8 50 C 8 28 30 8 50 8 Z"
-                  : s.shape === "blob2"
-                  ? "M 50 4 C 78 4 96 26 96 50 C 96 74 78 96 50 96 C 22 96 4 74 4 50 C 4 26 22 4 50 4 Z"
-                  : s.shape === "blob3"
-                  ? "M 50 12 C 68 12 88 30 88 50 C 88 70 70 88 50 88 C 30 88 12 70 12 50 C 12 30 32 12 50 12 Z"
-                  : "M 50 6 C 72 6 94 28 94 50 C 94 72 72 94 50 94 C 28 94 6 72 6 50 C 6 28 28 6 50 6 Z"
-              }
-              fill={s.color}
-            />
-          </svg>
-        </motion.div>
+        <FloatingSwatch key={i} swatch={s} smx={smx} smy={smy} />
       ))}
 
       {/* Drip animation */}
@@ -376,5 +355,70 @@ export function Hero() {
         </div>
       </motion.div>
     </section>
+  )
+}
+
+interface SwatchData {
+  color: string
+  size: number
+  x: string
+  y: string
+  delay: number
+  shape: string
+  depth: number
+}
+
+function FloatingSwatch({
+  swatch: s,
+  smx,
+  smy,
+}: {
+  swatch: SwatchData
+  smx: ReturnType<typeof useSpring>
+  smy: ReturnType<typeof useSpring>
+}) {
+  const px = useTransform(smx, (v) => v * s.depth * 1000)
+  const py = useTransform(smy, (v) => v * s.depth * 1000)
+
+  return (
+    <motion.div
+      className="absolute z-[1] pointer-events-none hidden sm:block"
+      style={{
+        left: s.x,
+        top: s.y,
+        width: s.size,
+        height: s.size,
+        x: px,
+        y: py,
+      }}
+      initial={{ opacity: 0, scale: 0.4, rotate: -20 }}
+      animate={{
+        opacity: [0, 1, 1, 0.8],
+        scale: [0.4, 1.1, 1, 1.05],
+        rotate: [-20, 5, -5, 10],
+      }}
+      transition={{
+        duration: 8,
+        delay: s.delay,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut",
+      }}
+    >
+      <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl">
+        <path
+          d={
+            s.shape === "blob1"
+              ? "M 50 8 C 70 8 92 28 92 50 C 92 72 72 92 50 92 C 28 92 8 72 8 50 C 8 28 30 8 50 8 Z"
+              : s.shape === "blob2"
+              ? "M 50 4 C 78 4 96 26 96 50 C 96 74 78 96 50 96 C 22 96 4 74 4 50 C 4 26 22 4 50 4 Z"
+              : s.shape === "blob3"
+              ? "M 50 12 C 68 12 88 30 88 50 C 88 70 70 88 50 88 C 30 88 12 70 12 50 C 12 30 32 12 50 12 Z"
+              : "M 50 6 C 72 6 94 28 94 50 C 94 72 72 94 50 94 C 28 94 6 72 6 50 C 6 28 28 6 50 6 Z"
+          }
+          fill={s.color}
+        />
+      </svg>
+    </motion.div>
   )
 }
