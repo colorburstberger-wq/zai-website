@@ -744,3 +744,86 @@ Task: Periodic QA + add Color Mood Quiz, 3D flip stat cards, dark mode contrast 
 6. **Performance audit**: Run Lighthouse, optimize images with next/image.
 7. **Export admin data**: Add CSV/Excel export buttons in admin dashboard.
 8. **Seasonal color trends**: Add a section showing trending colors by season.
+
+---
+Task ID: V9 (cron review round 9)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + add Seasonal Color Trends, Video Testimonials carousel, Sticky CTA banner.
+
+## Current Project Status (start of round)
+- Site had 24 sections + 5 overlay components, 4 APIs, 26 images.
+- All previously verified features stable: color mood quiz, 3D flip stat cards, mega-menu, click splash, hero parallax, paint cursor, palette explorer, service area search, SVG award badges, press strip, structured data, page loader, exit-intent popup, save-quote, room upload, admin dashboard, dark mode contrast.
+- No runtime errors; VLM scroll-transition artifacts are expected.
+
+## Goals / Completed Modifications
+
+### QA Findings (via agent-browser + VLM)
+- No runtime errors, no broken layouts, lint clean.
+- All prior features remain stable.
+
+### New Sections & Components (3 new, ~1100 lines)
+1. **SeasonalTrends** — Color trends by season switcher:
+   - 4 seasons: Spring (sage/blush/ivory), Summer (saffron/mustard/terracotta), Monsoon (teal/charcoal/forest), Winter (clay/cinnamon/sand)
+   - Each season: accent color, tagline, description, 4 trending colors with hex+mood, trending % badge
+   - Animated season switcher buttons (paint-gradient when active with accent color)
+   - Decorative blob background that changes color with season
+   - Left panel: accent-gradient header with season icon + tagline + description + trending badge + CTA
+   - Right panel: 4 color cards with hover sheen + mood badges + bottom shine
+   - Stylist tip card below color grid
+   - AnimatePresence for smooth season transitions
+2. **VideoTestimonials** — Carousel of video testimonial cards:
+   - 4 video testimonials with real client names, roles, locations, ratings, quotes
+   - Each card: thumbnail with color wash, play button (with pulse ring), duration badge, project badge
+   - Star ratings, quote, name/role/location in info section
+   - Draggable carousel (drag x to navigate)
+   - Prev/next buttons + dot indicators
+   - Click play → opens video player modal with:
+     - Large thumbnail with color wash
+     - Big play button with spring animation
+     - Animated audio waveform (40 bars with random heights)
+     - Client info bar with rating, name, role, project badge, full quote
+3. **StickyCTA** — Slim banner that slides in from bottom on scroll:
+   - Appears after scrolling past 900px (below Hero)
+   - Auto-hides when scrolling up or near Contact section (scrollYProgress > 0.88)
+   - Paint-gradient background with noise texture
+   - Animated sparkle icon (continuous rotate)
+   - "Free on-site colour consultation" + "Limited slots · No obligation · 45-min visit"
+   - Phone button + "Book now" CTA
+   - Dismissible with X button
+   - Shimmer sweep animation (repeats every 4s)
+   - Spring-animated entrance/exit
+
+### Polish & Micro-interactions
+- **Season switcher**: Active button gets accent background, icon scales 110%
+- **Video card play button**: Pulse ring animation + hover scale
+- **Audio waveform**: 40 bars with random heights animating continuously
+- **Sticky CTA shimmer**: Sweeps across every 4s for attention
+- **Seasonal blob**: Background blob changes color with active season
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ SeasonalTrends: 4 season tabs render, clicking "Winter" switches to clay/cinnamon colors — VLM confirmed
+- ✅ VideoTestimonials: 4 video cards with play buttons visible, clicking play opens modal with large play button + audio waveform — VLM confirmed
+- ✅ StickyCTA: appears after scrolling past Hero, shows "Free on-site colour consultation" with Book now button — VLM confirmed
+- ✅ All previously verified features remain stable
+- ✅ No runtime errors in console
+- ✅ 24+ sections + 6 overlay components (PageLoader, NewsletterPopup, SaveQuote modal, AdminDashboard, ClickSplash, StickyCTA)
+
+## Unresolved Issues / Risks
+- **Video testimonials are placeholders**: No actual video files — the modal shows a styled placeholder with play button + audio waveform. Could embed real video clips later.
+- **Sticky CTA on mobile**: May overlap with FloatingQuickActions FAB on small screens — both are centered/positioned to minimize overlap.
+- **Seasonal trends data**: Static — could be made dynamic with real trend data from inquiries.
+- **Admin dashboard security**: Still no authentication.
+- **VLM scroll-transition artifacts**: Still present (expected).
+- **Counter mid-flight values**: Still present (expected animation behavior).
+- **No automated tests**: All verification is manual via agent-browser + VLM.
+
+## Priority Recommendations for Next Phase
+1. **Admin authentication**: Add NextAuth.js gate to the admin dashboard.
+2. **Lazy-load below-fold sections**: Use next/dynamic for sections below the fold.
+3. **Multi-language (next-intl)**: Add English/Hindi/Bengali switching.
+4. **Blog detail pages**: Add real blog post routes with full content.
+5. **Real video files**: Replace video testimonial placeholders with actual clips.
+6. **Performance audit**: Run Lighthouse, optimize images with next/image.
+7. **Export admin data**: Add CSV/Excel export buttons in admin dashboard.
+8. **Project timeline section**: Add a visual timeline of a typical painting project.

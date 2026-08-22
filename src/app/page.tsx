@@ -11,6 +11,7 @@ import { PaintCalculator } from "@/components/sections/PaintCalculator"
 import { ColorVisualizer } from "@/components/sections/ColorVisualizer"
 import { ColorMoodQuiz } from "@/components/sections/ColorMoodQuiz"
 import { PaletteExplorer } from "@/components/sections/PaletteExplorer"
+import { SeasonalTrends } from "@/components/sections/SeasonalTrends"
 import { Offers } from "@/components/sections/Offers"
 import { Products } from "@/components/sections/Products"
 import { Gallery } from "@/components/sections/Gallery"
@@ -21,6 +22,7 @@ import { Team } from "@/components/sections/Team"
 import { AwardBadges } from "@/components/sections/AwardBadges"
 import { ServiceArea } from "@/components/sections/ServiceArea"
 import { Testimonials } from "@/components/sections/Testimonials"
+import { VideoTestimonials } from "@/components/sections/VideoTestimonials"
 import { BlogTips } from "@/components/sections/BlogTips"
 import { FAQ } from "@/components/sections/FAQ"
 import { BookingCalendar } from "@/components/sections/BookingCalendar"
@@ -33,6 +35,7 @@ import { ClickSplash } from "@/components/sections/ClickSplash"
 import { PageLoader } from "@/components/sections/PageLoader"
 import { NewsletterPopup } from "@/components/sections/NewsletterPopup"
 import { AdminDashboard } from "@/components/sections/AdminDashboard"
+import { StickyCTA } from "@/components/sections/StickyCTA"
 
 export default function Home() {
   return (
@@ -43,6 +46,7 @@ export default function Home() {
       <ClickSplash />
       <NewsletterPopup />
       <AdminDashboard />
+      <StickyCTA />
       <Navbar />
       <main className="flex-1">
         <Hero />
@@ -65,6 +69,8 @@ export default function Home() {
         <AwardBadges />
         <ServiceArea />
         <Testimonials />
+        <VideoTestimonials />
+        <SeasonalTrends />
         <BlogTips />
         <FAQ />
         <BookingCalendar />
