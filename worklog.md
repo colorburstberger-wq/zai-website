@@ -114,3 +114,120 @@ Stage Summary:
 - All core interactivity verified via agent-browser: form submit → DB insert → success state → toast notification.
 - Mobile + desktop layouts verified, no horizontal scroll, sticky footer at bottom.
 - Ready for periodic review cron.
+
+---
+Task ID: V2-IMG
+Agent: image-generation
+Task: Generate team member portraits (4) and blog/journal images (4) for the newly added Team, Awards/Certifications, and Blog/Journal sections of the Chroma House website.
+
+Work Log:
+- Read existing worklog.md to confirm project context (Chroma House brand, warm cream/charcoal/terracotta/saffron palette, prior 14-image generation run completed in Task ID 4).
+- Verified `/home/z/my-project/public/images/` directory already exists with 14 prior images (chroma-logo, hero-bg, about-painter, 5 gallery images, visualizer-room, texture-paint, 3 service images, cta-bg).
+- Confirmed `z-ai` CLI is available at `/usr/local/bin/z-ai` and reviewed supported sizes (864x1152, 1344x768, 1024x1024 — all needed sizes are supported and API-compliant).
+- Generated 8 images sequentially via `z-ai image -p <prompt> -o <path> -s <size>`. All 8 succeeded on the first attempt — no retries needed.
+- Verified each generated file exists on disk with file size >20KB (smallest: team-sneha.png at ~89KB; largest: blog-stucco.png at ~212KB).
+
+Stage Summary:
+- 8/8 images successfully generated in `/home/z/my-project/public/images/`:
+  - team-anirban.png   (864x1152, ~121KB)  — Founder, navy kurta, paint showroom bg
+  - team-priya.png     (864x1152, ~101KB)  — Colour Consultant, blazer + fan deck
+  - team-rafiq.png     (864x1152, ~116KB)  — Texture Specialist, white shirt + trowel
+  - team-sneha.png     (864x1152,  ~89KB)  — Waterproofing Engineer, polo + safety vest
+  - blog-monsoon.png   (1344x768, ~160KB)  — Featured blog image, terracotta home in monsoon rain
+  - blog-trends.png    (1024x1024, ~110KB) — Flat lay of curated earthy paint swatches
+  - blog-accent.png    (1024x1024, ~114KB) — Designer living room with terracotta accent wall
+  - blog-stucco.png    (1024x1024, ~212KB) — Macro comparison: smooth emulsion vs troweled stucco
+- Failures: 0. All images generated on first attempt. No retries, no size fallbacks needed.
+- Total image count in `/public/images/` is now 22 (14 from prior run + 8 from this run).
+- Next steps: Frontend components for the Team, Blog/Journal, and Awards/Certifications sections can now reference these paths via `/images/<filename>.png`. Team images are 864x1152 (portrait 3:4) — best displayed in circular or rounded-rect cards with `object-cover`. Blog images are a mix of landscape (1344x768) and square (1024x1024) — use `object-cover` with consistent aspect-ratio containers in the blog grid.
+
+---
+Task ID: V2 (cron review round 2)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + add new features, polish styling, dark mode, and more sections.
+
+## Current Project Status (start of round)
+- Site had 14 sections, 3 working APIs, 14 generated images.
+- Verified working: form submission, validation, color visualizer, mobile responsive, sticky footer.
+- Known minor issues from VLM QA: Hero "View our work" button had low contrast; counter animations showing mid-flight values during scroll screenshots; dark mode was enabled in ThemeProvider but had no UI toggle.
+
+## Goals / Completed Modifications
+
+### QA Findings (via agent-browser + VLM)
+- Console warning: scroll container needs relative position (cosmetic, framer-motion).
+- Hero "View our work" button low contrast — FIXED with stronger card background + icon button.
+- Counter animation mid-flight values showing in scroll screenshots — expected behavior, not a bug.
+- No runtime errors, no broken layouts, no test failures.
+
+### New Sections Added (6 new sections, ~2200 lines of new code)
+1. **PaintCalculator** (`#calculator`) — Interactive cost estimator with:
+   - Area slider (100–10,000 sq ft) with gradient fill + room presets (1BHK/2BHK/3BHK/4BHK/Office)
+   - 5 service multi-select toggles (interior, exterior, texture, waterproofing, wood)
+   - Coats stepper (1–4) with +/- buttons
+   - Add-ons: furniture moving & scaffolding toggles
+   - Live cost breakdown panel with animated total, GST 18%, per-sqft calculation
+   - Sticky result panel on desktop, stacked on mobile
+2. **Offers** (`#offers`) — Promotions section with:
+   - Live countdown timer (days/hrs/min/sec) to monsoon offer end
+   - 3 offer tabs (Monsoon 20% off, Festive free accent wall, Refer & earn ₹2,500)
+   - Animated offer card with coupon code copy-to-clipboard
+   - Perks list with colored check icons
+3. **Team** (`#team`) — 4 team member cards with:
+   - Real AI-generated portrait photos (Anirban, Priya, Rafiq, Sneha)
+   - Color-wash overlay matching member's accent
+   - Role, bio, expertise tags, years + projects stats
+   - Hover-reveal social buttons
+   - Crew stats banner (4 consultants, 24 painters, 6 supervisors, 12 yrs avg)
+4. **Awards** (`#awards`) — 6 credentials grid:
+   - Asian Paints Signature Dealer, Berger Authorised, Colour Academy, Best Texture Studio East, SmartCare Pro, ISO 9001
+   - Trust summary bar with 4 counters (15 yrs, 4500+ homes, 6 certs, 98% referral)
+5. **ServiceArea** (`#areas`) — Coverage map:
+   - Embedded Google Map with floating studio info card + directions button
+   - 12 area pills grid (Salt Lake, New Town, Ballygunge, etc.) with travel times + project counts
+   - Active area highlight card with pulsing pin
+6. **BlogTips** (`#blog`) — Journal section:
+   - Featured post (Monsoon guide) with real blog image
+   - 3 sidebar post cards with image thumbnails
+   - Category filter (All/Exterior/Trends/Design/Texture/Tips)
+
+### Styling & Polish
+- **ThemeToggle** component added to Navbar — animated sun/moon icon with pulse ring
+- **Dark mode palette refined**: richer warm undertones (oklch 0.16 0.014 45 bg), stronger borders (0.35 0.02 50 / 35%), brighter primary (0.78 0.17 55)
+- **Dark mode tweaks**: glass backdrop, bg-grid opacity, selection color, smooth 0.3s color transitions
+- **Custom range slider thumb** styling (22px coral circle with card border + shadow)
+- **Hero "View our work" button** restyled with icon-in-circle, stronger border, shadow-card
+- **Navbar** updated with ThemeToggle + new nav links (Estimate, Offers added; Products, Reviews kept)
+- **Page wrapper** got `overflow-x-hidden` to prevent any horizontal scroll
+
+### New Images Generated (8 images via z-ai CLI)
+- 4 team portraits: team-anirban.png, team-priya.png, team-rafiq.png, team-sneha.png (864x1152 each)
+- 4 blog images: blog-monsoon.png (1344x768), blog-trends.png, blog-accent.png, blog-stucco.png (1024x1024)
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ All 22 images load successfully (verified via agent-browser eval)
+- ✅ Calculator interactivity verified: multi-service selection, area slider, coats, add-ons all update total
+- ✅ Offers tab switching verified (Monsoon → Festive → Referral)
+- ✅ Coupon code copy-to-clipboard verified ("Copied!" state appears)
+- ✅ Dark mode toggle works, rated 8/10 by VLM
+- ✅ Mobile (390px) calculator stacks vertically and remains usable
+- ✅ Nav links scroll to correct sections (#calculator, #offers verified)
+- ✅ No runtime errors in console
+- ✅ Team section shows real portraits with color wash overlays
+- ✅ Blog featured + sidebar cards show real images
+
+## Unresolved Issues / Risks
+- **Counter mid-flight values** in scroll screenshots: VLM sometimes misreads (e.g. "1,592" instead of "2009") because the Counter animates from 0 on scroll-in. This is expected animation behavior, not a bug — final value is always correct.
+- **"1 Issue" red badge** in bottom-left of screenshots: This is Next.js dev-mode indicator (cross-origin preview warning), NOT a production issue.
+- **Hero background image** is 1344x768 (not the originally requested 1440x720) due to API constraint that 720 is not a multiple of 32. Handled gracefully with object-cover.
+- **No automated tests** — verification is manual via agent-browser + VLM.
+
+## Priority Recommendations for Next Phase
+1. **Booking calendar**: Add a date-picker component to the Contact section for scheduling on-site consultations (use ConsultationBooking Prisma model already created).
+2. **Before/After slider**: Add an interactive image comparison slider in the Gallery for dramatic transformations.
+3. **Paint calculator "Save quote"**: Let users save their calculator estimate and email it to themselves (new API + Subscriber link).
+4. **Blog detail pages**: Currently all blog links point to #blog anchor — could add real blog post pages with full content.
+5. **Service area search**: Add a postcode/area search input that filters the areas list and shows "We serve your area!" confirmation.
+6. **Awards badges as SVG**: Replace lucide icons in Awards section with custom SVG medal/badge designs for more premium feel.
+7. **Multi-language support**: Add next-intl for English/Hindi/Bengali switching (already installed).
+8. **Performance**: Consider lazy-loading below-the-fold sections with next/dynamic to reduce initial bundle.

@@ -204,11 +204,12 @@ export function Hero() {
                 <Button
                   asChild
                   size="lg"
-                  variant="outline"
-                  className="rounded-full bg-card/60 backdrop-blur border-border/70 hover:bg-card/80 px-6"
+                  className="rounded-full bg-card/95 backdrop-blur border-2 border-foreground/15 hover:border-foreground/30 hover:bg-card text-foreground shadow-card px-6 group"
                 >
                   <Link href="#gallery">
-                    <Play className="h-4 w-4 mr-2 text-primary" />
+                    <span className="grid place-items-center h-7 w-7 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                      <Play className="h-3.5 w-3.5 text-primary fill-primary" />
+                    </span>
                     View our work
                   </Link>
                 </Button>

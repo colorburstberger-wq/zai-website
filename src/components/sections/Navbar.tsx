@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { NAV_LINKS, SHOP } from "@/lib/data/content"
 import { Magnetic } from "@/components/motion/primitives"
+import { ThemeToggle } from "@/components/ThemeToggle"
 
 export function Navbar() {
   const [open, setOpen] = React.useState(false)
@@ -96,6 +97,8 @@ export function Navbar() {
                 </Link>
               </Button>
             </Magnetic>
+
+            <ThemeToggle />
 
             <button
               onClick={() => setOpen((o) => !o)}
