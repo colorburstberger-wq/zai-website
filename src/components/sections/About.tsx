@@ -12,12 +12,12 @@ const STAT_ICONS: Record<string, typeof Home> = {
 }
 
 const HIGHLIGHTS = [
-  "Authorised dealer since 2009",
-  "Certified colour consultants",
-  "Trained & insured in-house crew",
-  "Computerised colour matching",
-  "Dust-free, on-time delivery",
-  "Up to 10-year warranty",
+  "Berger Urban Exclusive Store since 2010",
+  "Berger Color Bank shade matching on site",
+  "Family-run, no sub-contractors",
+  "5.0-star Google rated (23 reviews)",
+  "Genuine products with full warranty",
+  "Free on-site colour consultation in Gorakhpur",
 ]
 
 export function About() {
@@ -53,7 +53,7 @@ export function About() {
                 <div className="relative rounded-[2rem] overflow-hidden shadow-card border-4 border-card aspect-[4/5] sm:aspect-[5/4]">
                   <img
                     src="/images/about-painter.png"
-                    alt="Chroma House master painter applying warm terracotta paint in a sunlit living room"
+                    alt="Berger Urban Exclusive Paints Store team applying warm terracotta paint in a sunlit Gorakhpur living room"
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
@@ -66,7 +66,7 @@ export function About() {
                         &ldquo;A wall is a canvas. We treat every home like a masterpiece in waiting.&rdquo;
                       </p>
                       <p className="text-xs text-white/70 mt-2">
-                        — Founder, Chroma House
+                        — Owner, Berger Urban Exclusive Paints Store, Gorakhpur
                       </p>
                     </div>
                   </div>
@@ -88,8 +88,8 @@ export function About() {
                   <Award className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-display text-lg font-bold leading-none">Authorised</p>
-                  <p className="text-xs text-muted-foreground">Berger & Asian Paints</p>
+                  <p className="font-display text-lg font-bold leading-none">Urban Exclusive</p>
+                  <p className="text-xs text-muted-foreground">Berger Paints Authorised Store</p>
                 </div>
               </motion.div>
             </div>
@@ -99,19 +99,20 @@ export function About() {
           <div className="lg:col-span-6 flex flex-col gap-6">
             <SectionHeading
               align="left"
-              kicker="About Chroma House"
+              kicker="About Our Store"
               title={
                 <>
-                  A family of painters, <span className="text-gradient-warm">colour obsessives</span> & finishers.
+                  Gorakhpur&apos;s trusted <span className="text-gradient-warm">Berger Paints</span> exclusive store.
                 </>
               }
               description={
                 <>
-                  Founded in {SHOP.founded} as a single-room paint counter in Lake Town, Kolkata,
-                  Chroma House has grown into one of East India&apos;s most respected premium paint
-                  studios — yet we still treat every project like our first. We are an authorised
-                  dealer for both Berger Paints and Asian Paints, with an in-house team of certified
-                  colour consultants, trained applicators and master polishers.
+                  Established in {SHOP.founded} in Siddharth Enclave, Taramandal, Gorakhpur, we are
+                  an authorised Berger Urban Exclusive Paints Store — Berger&apos;s flagship retail
+                  partnership tier. We stock the complete Berger range (Easy Clean, Breathe Easy,
+                  Weathercoat, Luxol, Designory) with full manufacturer warranty, and also supply
+                  Asian Paints products on request. Our family-run store is proud to be Gorakhpur&apos;s
+                  highest-rated paint shop, with a 5.0-star Google rating from 23+ verified reviews.
                 </>
               }
             />
@@ -138,11 +139,11 @@ export function About() {
               <div className="grid sm:grid-cols-2 gap-3 mt-2">
                 <div className="flex items-center gap-2 rounded-xl border border-border/60 bg-card/60 p-3">
                   <MapPin className="h-4 w-4 text-primary" />
-                  <span className="text-sm">Lake Town, Kolkata</span>
+                  <span className="text-sm">Siddharth Enclave, Gorakhpur</span>
                 </div>
                 <div className="flex items-center gap-2 rounded-xl border border-border/60 bg-card/60 p-3">
                   <Calendar className="h-4 w-4 text-primary" />
-                  <span className="text-sm">Open Mon – Sun</span>
+                  <span className="text-sm">Open Mon – Sat 8AM–8:30PM</span>
                 </div>
               </div>
             </Reveal>

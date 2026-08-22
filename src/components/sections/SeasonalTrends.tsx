@@ -100,7 +100,7 @@ export function SeasonalTrends() {
               The palette of <span className="text-gradient-warm">every season.</span>
             </>
           }
-          description="Our colour consultants track what's trending across Kolkata homes. Switch seasons to see this year's most-requested shades."
+          description="Our colour consultants track what's trending across Gorakhpur homes. Switch seasons to see this year's most-requested shades."
         />
 
         {/* Season switcher */}

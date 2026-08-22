@@ -134,7 +134,7 @@ export function Contact() {
             <Reveal delay={0.1}>
               <div className="mt-4 rounded-2xl overflow-hidden border border-border/60 shadow-card aspect-video relative">
                 <iframe
-                  title="Chroma House location"
+                  title="Berger Urban Exclusive Paints Store location"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&output=embed`}
                   className="absolute inset-0 h-full w-full"
                   loading="lazy"
@@ -171,7 +171,7 @@ export function Contact() {
                     </motion.div>
                     <h3 className="mt-6 font-display text-2xl font-bold">Thank you!</h3>
                     <p className="mt-2 text-muted-foreground max-w-sm">
-                      Your inquiry has been received. A Chroma House colour expert will call you
+                      Your inquiry has been received. A Berger Urban Exclusive colour expert will call you
                       within 2 hours to schedule your free site visit.
                     </p>
                   </motion.div>
@@ -185,7 +185,7 @@ export function Contact() {
                     <div className="grid sm:grid-cols-2 gap-4">
                       <Field label="Your name" error={errors.name?.message}>
                         <Input
-                          placeholder="Ananya Banerjee"
+                          placeholder="Your Name"
                           {...form.register("name")}
                           className="h-11 rounded-xl"
                         />

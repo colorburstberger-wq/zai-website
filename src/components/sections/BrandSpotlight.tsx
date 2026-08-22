@@ -33,7 +33,7 @@ export function BrandSpotlight() {
               Two of the world&apos;s best. <span className="text-gradient-warm">One studio.</span>
             </>
           }
-          description="We are proud to be an authorised dealer for both Berger Paints and Asian Paints — bringing you genuine, warrantied products from the two most respected names in the industry."
+          description="We are a Berger Urban Exclusive Paints Store in Gorakhpur — Berger is our flagship partnership, and we also collaborate with Asian Paints to bring you genuine, warrantied products from two of India's most respected paint brands."
         />
 
         <div className="mt-14 grid lg:grid-cols-2 gap-6 lg:gap-8">

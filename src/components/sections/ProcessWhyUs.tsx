@@ -74,7 +74,7 @@ export function ProcessWhyUs() {
       {/* Why us */}
       <div className="mt-24 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          kicker="Why Chroma House"
+          kicker="Why our store"
           title={
             <>
               The difference is in the <span className="text-gradient-warm">details.</span>

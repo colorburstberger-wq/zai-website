@@ -22,48 +22,48 @@ interface TeamMember {
 
 const TEAM: TeamMember[] = [
   {
-    name: "Anirban Sengupta",
-    role: "Founder & Master Colourist",
-    bio: "Started Chroma House in 2009 after 12 years at Asian Paints. Personally oversees every premium project.",
-    initials: "AS",
+    name: "Sanjay Jaiswal",
+    role: "Owner & Store Manager",
+    bio: "Founded the Berger Urban Exclusive Paints Store in Gorakhpur in 2010. Personally guides every customer to the right Berger product for their project.",
+    initials: "SJ",
     image: "/images/team-anirban.png",
     accent: "var(--paint-coral)",
-    expertise: ["Colour theory", "Italian stucco", "Project planning"],
-    years: 26,
+    expertise: ["Berger Color Bank", "Product selection", "Project planning"],
+    years: 15,
     projects: 1200,
   },
   {
-    name: "Priya Mukherjee",
-    role: "Lead Colour Consultant",
-    bio: "Certified by Asian Paints Colour Academy. Brings mood boards, swatches and lighting analysis to your home.",
-    initials: "PM",
+    name: "Anjali Mishra",
+    role: "Colour Consultant",
+    bio: "Helps Gorakhpur homeowners pick the perfect Berger shade for their lighting and décor. Brings swatch fans and mood boards to every site visit.",
+    initials: "AM",
     image: "/images/team-priya.png",
     accent: "var(--paint-saffron)",
-    expertise: ["Residential colour", "Lighting", "Trend forecasting"],
-    years: 11,
-    projects: 850,
+    expertise: ["Residential colour", "Lighting", "Berger Easy Clean"],
+    years: 8,
+    projects: 650,
   },
   {
-    name: "Rafiq Ahmed",
+    name: "Imran Khan",
     role: "Site Supervisor & Texture Specialist",
-    bio: "Trained in Italy on Marmorino and Venetian plasters. The artisan behind every accent wall.",
-    initials: "RA",
+    bio: "Leads our Berger Designory texture applications across Gorakhpur. Hand-troweled stucco and metallic finishes are his specialty.",
+    initials: "IK",
     image: "/images/team-rafiq.png",
     accent: "var(--paint-clay)",
-    expertise: ["Italian stucco", "Metallic plaster", "Trowel finishes"],
-    years: 18,
-    projects: 540,
+    expertise: ["Berger Designory", "Metallic plaster", "Trowel finishes"],
+    years: 12,
+    projects: 420,
   },
   {
-    name: "Sneha Patel",
-    role: "Waterproofing Engineer",
-    bio: "Civil engineer turned waterproofing expert. Asian Paints SmartCare certified. Two monsoons tested.",
-    initials: "SP",
+    name: "Vikas Gupta",
+    role: "Waterproofing & Exterior Lead",
+    bio: "Berger Weathercoat and Aqua Shield specialist. Has weatherproofed hundreds of Gorakhpur homes against the monsoon.",
+    initials: "VG",
     image: "/images/team-sneha.png",
     accent: "var(--paint-teal)",
-    expertise: ["Crystalline", "Terrace systems", "Bathroom seal"],
-    years: 9,
-    projects: 410,
+    expertise: ["Berger Aqua Shield", "Terrace systems", "Bathroom seal"],
+    years: 10,
+    projects: 380,
   },
 ]
 
@@ -77,10 +77,10 @@ export function Team() {
           kicker="The people behind the brush"
           title={
             <>
-              Meet the <span className="text-gradient-warm">Chroma House crew.</span>
+              Meet the <span className="text-gradient-warm">store team.</span>
             </>
           }
-          description="A small, dedicated team of certified colour consultants, master artisans and site supervisors — every one of them on our payroll, never sub-contracted."
+          description="Our family-run Berger Urban Exclusive Paints Store in Gorakhpur is staffed by people who genuinely care about your home — every one of them on our payroll, never sub-contracted."
         />
 
         <motion.div
@@ -102,7 +102,7 @@ export function Team() {
               <div className="relative h-64 overflow-hidden">
                 <img
                   src={m.image}
-                  alt={`${m.name} — ${m.role} at Chroma House`}
+                  alt={`${m.name} — ${m.role} at Berger Urban Exclusive Paints Store`}
                   className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 {/* Color wash overlay */}
@@ -121,7 +121,7 @@ export function Team() {
                 {/* Name overlay at bottom */}
                 <div className="absolute bottom-3 left-4 right-4">
                   <p className="text-[10px] uppercase tracking-widest text-white/80">
-                    {m.initials} · Chroma House
+                    {m.initials} · Berger Urban Exclusive
                   </p>
                 </div>
               </div>

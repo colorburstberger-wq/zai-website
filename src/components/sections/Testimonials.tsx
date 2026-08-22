@@ -37,10 +37,10 @@ export function Testimonials() {
           kicker="Reviews"
           title={
             <>
-              Loved by Kolkata&apos;s <span className="text-gradient-warm">homeowners.</span>
+              Loved by Gorakhpur&apos;s <span className="text-gradient-warm">homeowners.</span>
             </>
           }
-          description="Real words from real clients — across Salt Lake, New Town, Ballygunge and beyond."
+          description="Real words from real clients — across Siddharth Enclave, Taramandal, Rail Vihar and beyond in Gorakhpur."
         />
 
         <div className="mt-12 grid lg:grid-cols-12 gap-8 items-center">
@@ -48,7 +48,7 @@ export function Testimonials() {
           <Reveal className="lg:col-span-4" delay={0.05}>
             <div className="rounded-3xl bg-card border border-border/60 p-6 shadow-card text-center">
               <p className="font-display text-7xl font-bold text-gradient-warm">
-                <Counter to={4.9} decimals={1} />
+                <Counter to={5.0} decimals={1} />
               </p>
               <div className="mt-2 flex items-center justify-center gap-1">
                 {[1, 2, 3, 4, 5].map((s) => (
@@ -58,20 +58,20 @@ export function Testimonials() {
               <p className="mt-2 text-sm text-muted-foreground">
                 Average rating from{" "}
                 <span className="font-semibold text-foreground">
-                  <Counter to={327} suffix="+" />
+                  <Counter to={23} suffix="+" />
                 </span>{" "}
-                verified reviews
+                verified Google reviews
               </p>
               <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
                 <div className="rounded-xl bg-secondary/60 p-3">
                   <p className="font-display text-2xl font-bold text-foreground">
-                    <Counter to={98} suffix="%" />
+                    <Counter to={100} suffix="%" />
                   </p>
-                  <p className="text-muted-foreground">referral rate</p>
+                  <p className="text-muted-foreground">5-star Google rated</p>
                 </div>
                 <div className="rounded-xl bg-secondary/60 p-3">
                   <p className="font-display text-2xl font-bold text-foreground">
-                    <Counter to={4500} suffix="+" />
+                    <Counter to={1200} suffix="+" />
                   </p>
                   <p className="text-muted-foreground">homes painted</p>
                 </div>

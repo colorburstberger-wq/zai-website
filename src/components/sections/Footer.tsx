@@ -114,16 +114,15 @@ export function Footer() {
               </div>
               <div>
                 <p className="font-display text-xl font-bold">
-                  Chroma <span className="text-paint-saffron">House</span>
+                  Berger <span className="text-paint-saffron">Urban Exclusive</span>
                 </p>
                 <p className="text-[10px] uppercase tracking-[0.2em] text-background/60">
-                  Paints & Décor Studio
+                  Paints Store · Gorakhpur
                 </p>
               </div>
             </Link>
             <p className="mt-4 text-sm text-background/70 text-pretty">
-              {SHOP.tagline} East India&apos;s trusted authorised dealer for Berger Paints and
-              Asian Paints since {SHOP.founded}.
+              {SHOP.tagline} Gorakhpur&apos;s authorised Berger Urban Exclusive Paints Store since {SHOP.founded}.
             </p>
             <div className="mt-5 flex items-center gap-2">
               {[Facebook, Instagram, Youtube].map((Icon, i) => (
@@ -216,9 +215,9 @@ export function Footer() {
         {/* Bottom row */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-background/60 text-center sm:text-left">
-            © {new Date().getFullYear()} Chroma House. All rights reserved. Crafted with
+            © {new Date().getFullYear()} Berger Urban Exclusive Paints Store. All rights reserved. Crafted with
             <Sparkles className="inline h-3 w-3 mx-1 text-paint-saffron" />
-            in Kolkata, India.
+            in Gorakhpur, India.
           </p>
           <div className="flex items-center gap-4 text-xs text-background/60">
             <Link href="#" className="hover:text-paint-saffron transition-colors">Privacy</Link>

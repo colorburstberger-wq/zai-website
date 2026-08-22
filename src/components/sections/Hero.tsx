@@ -139,11 +139,11 @@ export function Hero() {
               transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-balance"
             >
-              Where every wall
+              Gorakhpur&apos;s trusted
               <br />
-              tells a{" "}
+              Berger Paints{" "}
               <span className="relative inline-block">
-                <span className="text-gradient-warm">colour story.</span>
+                <span className="text-gradient-warm">exclusive store.</span>
                 <motion.svg
                   viewBox="0 0 320 30"
                   className="absolute -bottom-3 left-0 w-full h-6"
@@ -168,9 +168,9 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="text-lg sm:text-xl text-muted-foreground max-w-xl text-pretty"
             >
-              {SHOP.tagline} Premium interior & exterior painting, designer textures,
-              waterproofing and colour consultation — backed by {SHOP.founded}'s craftsmanship
-              and the world's most trusted paint brands.
+              {SHOP.tagline} Authorised Berger Urban Exclusive Paints Store stocking Easy Clean,
+              Breathe Easy, Weathercoat, Luxol & Designory. Genuine products, full warranty, Color Bank
+              shade matching and on-site colour consultation across Gorakhpur. 5.0-star Google rated.
             </motion.p>
 
             <motion.div
@@ -219,12 +219,12 @@ export function Hero() {
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star key={s} className="h-4 w-4 fill-paint-saffron text-paint-saffron" />
                 ))}
-                <span className="ml-2 text-sm font-medium">4.9 / 5</span>
-                <span className="text-sm text-muted-foreground">· 320+ reviews</span>
+                <span className="ml-2 text-sm font-medium">5.0 / 5</span>
+                <span className="text-sm text-muted-foreground">· 23 Google reviews</span>
               </div>
               <div className="h-4 w-px bg-border" />
               <div className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">4,500+</span> homes painted
+                <span className="font-semibold text-foreground">1,200+</span> homes painted in Gorakhpur
               </div>
             </motion.div>
           </div>
@@ -252,7 +252,7 @@ export function Hero() {
               <div className="relative h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-card group">
                 <img
                   src="/images/about-painter.png"
-                  alt="Master painter at work with a warm terracotta paint roller"
+                  alt="Berger Urban Exclusive Paints Store painter applying warm terracotta paint in a sunlit Gorakhpur living room"
                   className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />

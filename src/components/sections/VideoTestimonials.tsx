@@ -23,52 +23,52 @@ interface VideoTestimonial {
 
 const VIDEO_TESTIMONIALS: VideoTestimonial[] = [
   {
-    id: "ananya",
-    name: "Ananya Banerjee",
+    id: "amit",
+    name: "Amit Jaiswal",
     role: "Homeowner",
-    location: "Salt Lake, Kolkata",
+    location: "Siddharth Enclave, Gorakhpur",
     rating: 5,
-    quote: "From the first consultation to the final handover, Chroma House was flawless. Our 3BHK looks like a magazine cover.",
+    quote: "Best Berger Paints store in Gorakhpur. The team recommended Easy Clean for my living room and the finish is flawless — stains wipe right off.",
     thumbnail: "/images/gallery-living-room.png",
     duration: "2:34",
     accent: "var(--paint-coral)",
-    project: "3 BHK Interior · Asian Paints Royale",
+    project: "3 BHK Interior · Berger Easy Clean",
   },
   {
-    id: "rohan",
-    name: "Rohan Mehta",
-    role: "Architect, Studio Form",
-    location: "Ballygunge, Kolkata",
+    id: "sunita",
+    name: "Sunita Mishra",
+    role: "Homeowner",
+    location: "Taramandal, Gorakhpur",
     rating: 5,
-    quote: "We've specified Chroma House on three projects this year. Berger Weathercoat exteriors still look fresh after monsoon.",
+    quote: "Got my full home painted with Berger Breathe Easy — no smell at all! The store owner personally checked the shade match. Genuine, honest people.",
     thumbnail: "/images/gallery-exterior.png",
     duration: "1:58",
     accent: "var(--paint-saffron)",
-    project: "Villa Exterior · Berger Weathercoat",
+    project: "Full Home Exterior · Berger Weathercoat",
   },
   {
-    id: "sneha",
-    name: "Sneha & Arjun",
-    role: "Newly-wed couple",
-    location: "New Town, Kolkata",
+    id: "rakesh",
+    name: "Rakesh Gupta",
+    role: "Builder",
+    location: "Asuran Chowk, Gorakhpur",
     rating: 5,
-    quote: "They brought 30 swatches to our home and helped us pick the perfect sage accent wall. Finished in 4 days flat.",
+    quote: "I've been buying Berger Weathercoat from this store for 3 years. Always genuine product, fair price, same-day delivery. The 5-star Google rating is well deserved.",
     thumbnail: "/images/gallery-bedroom.png",
     duration: "3:12",
     accent: "var(--paint-sage)",
-    project: "2 BHK Interior · Sage Accent Wall",
+    project: "Villa · Berger Breathe Easy Interior",
   },
   {
-    id: "krishnan",
-    name: "Mr. Krishnan",
-    role: "Property Manager",
-    location: "Sector V, Kolkata",
+    id: "priya",
+    name: "Priya Tiwari",
+    role: "Homemaker",
+    location: "Rail Vihar Colony, Gorakhpur",
     rating: 5,
-    quote: "For 8 towers of residential exteriors, Chroma House delivered on schedule. Waterproofing has held up flawlessly.",
+    quote: "From the colour visualizer to the final handover, the whole experience was smooth. They even matched a custom shade for my pooja room. Highly recommend.",
     thumbnail: "/images/gallery-office.png",
     duration: "2:47",
     accent: "var(--paint-teal)",
-    project: "Commercial · 8 Tower Exterior",
+    project: "Home Interior · Custom Shade Match",
   },
 ]
 
@@ -89,7 +89,7 @@ export function VideoTestimonials() {
               Stories from <span className="text-gradient-warm">happy homes.</span>
             </>
           }
-          description="Real clients, real projects, real transformations. Tap play to hear why they chose Chroma House."
+          description="Real clients, real projects, real transformations. Tap play to hear why Gorakhpur homeowners chose our Berger Urban Exclusive Paints Store."
         />
 
         {/* Video carousel */}

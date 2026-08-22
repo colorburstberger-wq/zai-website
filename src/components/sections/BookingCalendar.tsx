@@ -296,7 +296,7 @@ export function BookingCalendar() {
                         <Input
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Ananya Banerjee"
+                          placeholder="Your Name"
                           className="h-11 rounded-xl"
                         />
                       </FormField>

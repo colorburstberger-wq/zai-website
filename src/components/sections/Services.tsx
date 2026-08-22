@@ -31,7 +31,7 @@ export function Services() {
               Crafted services, <span className="text-gradient-warm">end to end.</span>
             </>
           }
-          description="From the first colour swatch to the final protective top-coat — Chroma House delivers a complete, dust-free painting experience backed by genuine Berger & Asian Paints products."
+          description="From the first colour swatch to the final protective top-coat — our Berger Urban Exclusive Paints Store delivers a complete, dust-free painting experience backed by genuine Berger products."
         />
 
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">

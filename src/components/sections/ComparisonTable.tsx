@@ -68,13 +68,13 @@ export function ComparisonTable() {
     <section className="relative py-20 sm:py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          kicker="Why choose Chroma House"
+          kicker="Why choose us"
           title={
             <>
-              The Chroma difference, <span className="text-gradient-warm">side by side.</span>
+              The Berger difference, <span className="text-gradient-warm">side by side.</span>
             </>
           }
-          description="A frank comparison of what you get with Chroma House vs a typical local painter vs DIY."
+          description="A frank comparison of what you get with our Berger Urban Exclusive Paints Store vs a typical local painter vs DIY."
         />
 
         <Reveal delay={0.1}>
@@ -87,7 +87,7 @@ export function ComparisonTable() {
                       Compare features
                     </span>
                   </th>
-                  {/* Chroma House column */}
+                  {/* Berger Urban Exclusive column */}
                   <th className="p-4 sm:p-6 relative">
                     <div className="absolute -top-px left-0 right-0 h-1 paint-gradient" />
                     <div className="flex flex-col items-center gap-1">
@@ -96,10 +96,10 @@ export function ComparisonTable() {
                         Recommended
                       </span>
                       <span className="font-display text-base sm:text-lg font-bold mt-1">
-                        Chroma House
+                        Berger Urban Exclusive
                       </span>
                       <span className="text-[10px] text-muted-foreground">
-                        Premium studio · 15 yrs
+                        Berger Urban Exclusive · Gorakhpur
                       </span>
                     </div>
                   </th>
@@ -165,7 +165,7 @@ export function ComparisonTable() {
             </span>
             <span className="flex items-center gap-1.5 text-foreground font-semibold">
               <Sparkles className="h-3 w-3 text-paint-saffron" />
-              12 standards Chroma House meets that others don&apos;t
+              12 standards our store meets that others don&apos;t
             </span>
           </div>
         </Reveal>

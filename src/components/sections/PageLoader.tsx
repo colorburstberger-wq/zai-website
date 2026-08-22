@@ -97,11 +97,11 @@ export function PageLoader() {
               transition={{ delay: 0.2 }}
               className="text-center"
             >
-              <p className="font-display text-2xl font-bold">
-                Chroma <span className="text-gradient-warm">House</span>
+              <p className="font-display text-xl font-bold">
+                Berger <span className="text-gradient-warm">Urban Exclusive</span>
               </p>
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-1">
-                Paints & Décor Studio
+                Paints Store · Gorakhpur
               </p>
             </motion.div>
 

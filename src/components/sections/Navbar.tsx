@@ -96,11 +96,11 @@ export function Navbar() {
               </div>
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-display text-lg font-bold tracking-tight text-foreground">
-                Chroma <span className="text-gradient-warm">House</span>
+              <span className="font-display text-base font-bold tracking-tight text-foreground">
+                Berger <span className="text-gradient-warm">Urban Exclusive</span>
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                Paints & Décor Studio
+                Paints Store · Gorakhpur
               </span>
             </div>
           </Link>

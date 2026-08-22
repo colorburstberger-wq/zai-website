@@ -17,22 +17,22 @@ interface Area {
 }
 
 const AREAS: Area[] = [
-  { name: "Salt Lake", travelMins: "10 min", projects: 920, featured: true },
-  { name: "New Town", travelMins: "15 min", projects: 680, featured: true },
-  { name: "Rajarhat", travelMins: "20 min", projects: 410 },
-  { name: "Ballygunge", travelMins: "25 min", projects: 540 },
-  { name: "Alipore", travelMins: "30 min", projects: 280 },
-  { name: "Lake Town", travelMins: "2 min", projects: 380, featured: true },
-  { name: "Behala", travelMins: "28 min", projects: 320 },
-  { name: "Howrah", travelMins: "35 min", projects: 240 },
-  { name: "Gariahat", travelMins: "22 min", projects: 460 },
-  { name: "Esplanade", travelMins: "20 min", projects: 180 },
-  { name: "Jadavpur", travelMins: "30 min", projects: 290 },
-  { name: "Dum Dum", travelMins: "15 min", projects: 360 },
+  { name: "Siddharth Enclave", travelMins: "2 min", projects: 320, featured: true },
+  { name: "Taramandal", travelMins: "5 min", projects: 280, featured: true },
+  { name: "Rail Vihar", travelMins: "5 min", projects: 190, featured: true },
+  { name: "Buddh Vihar", travelMins: "10 min", projects: 210 },
+  { name: "Asuran Chowk", travelMins: "8 min", projects: 175 },
+  { name: "Golghar", travelMins: "12 min", projects: 240 },
+  { name: "Civil Lines", travelMins: "15 min", projects: 165 },
+  { name: "Rapti Nagar", travelMins: "18 min", projects: 130 },
+  { name: "Mahendra Nagar", travelMins: "20 min", projects: 110 },
+  { name: "Daudpur", travelMins: "22 min", projects: 95 },
+  { name: "Basharatpur", travelMins: "25 min", projects: 80 },
+  { name: "Padri Bazaar", travelMins: "15 min", projects: 120 },
 ]
 
 export function ServiceArea() {
-  const [hovered, setHovered] = React.useState<string | null>("Lake Town")
+  const [hovered, setHovered] = React.useState<string | null>("Siddharth Enclave")
   const [query, setQuery] = React.useState("")
   const activeArea = AREAS.find((a) => a.name === hovered) ?? AREAS[0]
 
@@ -54,10 +54,10 @@ export function ServiceArea() {
           kicker="Where we paint"
           title={
             <>
-              Serving greater <span className="text-gradient-warm">Kolkata.</span>
+              Serving greater <span className="text-gradient-warm">Gorakhpur.</span>
             </>
           }
-          description="Based in Lake Town — we cover the entire Kolkata metropolitan area within a 35-minute radius. For commercial projects beyond, we travel on request."
+          description="Based in Siddharth Enclave, Taramandal — we cover the entire Gorakhpur district within a 30-minute radius. For commercial projects beyond, we travel on request."
         />
 
         <div className="mt-12 grid lg:grid-cols-12 gap-6">
@@ -65,7 +65,7 @@ export function ServiceArea() {
           <Reveal className="lg:col-span-7" delay={0.05}>
             <div className="relative rounded-3xl overflow-hidden border-4 border-card shadow-card aspect-[16/10]">
               <iframe
-                title="Chroma House service area"
+                title="Berger Urban Exclusive service area"
                 src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&z=12&output=embed`}
                 className="absolute inset-0 h-full w-full"
                 loading="lazy"
@@ -84,8 +84,8 @@ export function ServiceArea() {
                     <MapPin className="h-4 w-4 text-white" />
                   </div>
                   <div>
-                    <p className="font-display text-sm font-bold text-foreground">Chroma House Studio</p>
-                    <p className="text-[11px] text-muted-foreground">Lake Town, Kolkata</p>
+                    <p className="font-display text-sm font-bold text-foreground">Berger Urban Exclusive</p>
+                    <p className="text-[11px] text-muted-foreground">Siddharth Enclave, Gorakhpur</p>
                   </div>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -130,7 +130,7 @@ export function ServiceArea() {
                   <Input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search your area — e.g. Salt Lake"
+                    placeholder="Search your area — e.g. Taramandal"
                     className="pl-10 pr-9 h-10 rounded-xl bg-secondary/50 border-border/60 focus-visible:bg-card"
                   />
                   {query && (
@@ -174,7 +174,7 @@ export function ServiceArea() {
                         <div className="rounded-xl bg-secondary border border-border/60 px-3 py-2 flex items-center gap-2">
                           <Sparkles className="h-4 w-4 text-paint-saffron shrink-0" />
                           <p className="text-xs text-muted-foreground">
-                            Not listed? We still cover greater Kolkata —{" "}
+                            Not listed? We still cover greater Gorakhpur —{" "}
                             <a href="#contact" className="font-semibold text-primary hover:underline">
                               ask us
                             </a>
@@ -219,7 +219,7 @@ export function ServiceArea() {
                 </div>
                 {filtered.length === 0 && (
                   <p className="text-center text-sm text-muted-foreground py-6">
-                    No areas match &ldquo;{query}&rdquo; — try &ldquo;Salt Lake&rdquo; or &ldquo;New Town&rdquo;.
+                    No areas match &ldquo;{query}&rdquo; — try &ldquo;Taramandal&rdquo; or &ldquo;Golghar&rdquo;.
                   </p>
                 )}
               </div>

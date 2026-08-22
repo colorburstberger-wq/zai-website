@@ -26,9 +26,9 @@ const PAIRS: Pair[] = [
     before: "/images/before-living.png",
     after: "/images/after-living.png",
     description:
-      "Peeling cream walls transformed with a warm terracotta accent and Asian Paints Royale emulsion — finished in 4 days, dust-free.",
+      "Peeling cream walls transformed with a warm terracotta accent and Berger Easy Clean emulsion — finished in 4 days, dust-free.",
     duration: "4 days",
-    brand: "Asian Paints Royale",
+    brand: "Berger Easy Clean",
   },
   {
     id: "exterior",
@@ -61,7 +61,7 @@ export function BeforeAfter() {
               Before &amp; after, <span className="text-gradient-warm">live.</span>
             </>
           }
-          description="Drag the slider handle to reveal the transformation. Real Chroma House projects — same room, fresh paint."
+          description="Drag the slider handle to reveal the transformation. Real projects from our Gorakhpur store — same room, fresh paint."
         />
 
         {/* Pair tabs */}
@@ -218,7 +218,7 @@ function ComparisonSlider({
       {/* After (full) */}
       <img
         src={after}
-        alt="After Chroma House painting"
+        alt="After painting by Berger Urban Exclusive"
         className="absolute inset-0 h-full w-full object-cover pointer-events-none"
         draggable={false}
       />
@@ -229,7 +229,7 @@ function ComparisonSlider({
       >
         <img
           src={before}
-          alt="Before Chroma House painting"
+          alt="Before painting by Berger Urban Exclusive"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ width: `${(100 / pos) * 100}%`, maxWidth: "none" }}
           draggable={false}

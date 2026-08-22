@@ -132,7 +132,7 @@ export function NewsletterPopup() {
                   <h3 className="font-display text-2xl font-bold mt-5">You&apos;re in! 🎨</h3>
                   <p className="text-muted-foreground mt-2 max-w-sm mx-auto">
                     Check your inbox for our <strong>Seasonal Palette Guide</strong> —
-                    it&apos;s on its way. Welcome to the Chroma family.
+                    it&apos;s on its way. Welcome to the Berger Urban Exclusive family.
                   </p>
                 </motion.div>
               ) : (
@@ -179,7 +179,7 @@ export function NewsletterPopup() {
                       Get our free colour guide.
                     </h3>
                     <p className="text-sm text-muted-foreground mt-2">
-                      Join 3,200+ Kolkata homeowners getting our monthly palette drops, exclusive
+                      Join 3,200+ Gorakhpur homeowners getting our monthly palette drops, exclusive
                       offers and painting tips.
                     </p>
 

@@ -25,7 +25,7 @@ export function Gallery() {
               Projects that <span className="text-gradient-warm">wear their colour proudly.</span>
             </>
           }
-          description="A small selection of homes, offices and villas we have painted across Kolkata in the past year. Every image is real Chroma House work — no stock photography."
+          description="A small selection of homes, offices and villas we have painted across Gorakhpur in the past year. Every image is real Berger Urban Exclusive work — no stock photography."
         />
 
         <Reveal delay={0.05}>

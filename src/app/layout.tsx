@@ -19,34 +19,41 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Chroma House — Premium Paints & Décor Studio | Berger & Asian Paints Authorised Dealer",
+  title: "Berger Urban Exclusive Paints Store, Gorakhpur | Authorised Berger Paints Dealer",
   description:
-    "Chroma House is a premium paints & décor studio and authorised dealer for Berger Paints and Asian Paints. Expert colour consultation, interior & exterior painting, waterproofing, texture finishes and more.",
+    "Berger Urban Exclusive Paints Store in Siddharth Enclave, Taramandal, Gorakhpur. Authorised Berger Paints dealer stocking Easy Clean, Breathe Easy, Weathercoat, Luxol & Designory. Color Bank shade matching, on-site colour consultation, interior & exterior painting, texture finishes and waterproofing across Gorakhpur. 5.0-star Google rated.",
   keywords: [
-    "Chroma House",
-    "paint shop",
+    "Berger Paints Gorakhpur",
+    "Berger Urban Exclusive",
+    "paint shop Gorakhpur",
+    "paint dealer Gorakhpur",
     "Berger Paints dealer",
-    "Asian Paints dealer",
-    "interior painting",
-    "exterior painting",
-    "colour consultation",
+    "Asian Paints Gorakhpur",
+    "interior painting Gorakhpur",
+    "exterior painting Gorakhpur",
+    "colour consultation Gorakhpur",
+    "Berger Weathercoat",
+    "Berger Easy Clean",
+    "Berger Breathe Easy",
+    "Berger Color Bank",
     "texture painting",
-    "waterproofing",
-    "premium paints",
+    "waterproofing Gorakhpur",
+    "Siddharth Enclave Gorakhpur",
+    "Taramandal Gorakhpur paint shop",
   ],
-  authors: [{ name: "Chroma House" }],
+  authors: [{ name: "Berger Urban Exclusive Paints Store" }],
   openGraph: {
-    title: "Chroma House — Premium Paints & Décor Studio",
+    title: "Berger Urban Exclusive Paints Store, Gorakhpur",
     description:
-      "Where every wall tells a colour story. Authorised dealer for Berger Paints and Asian Paints.",
-    siteName: "Chroma House",
+      "Gorakhpur's trusted Berger Paints exclusive store. Authorised dealer for Berger Paints, also supplying Asian Paints. 5.0-star Google rated.",
+    siteName: "Berger Urban Exclusive Paints Store",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chroma House — Premium Paints & Décor Studio",
-    description: "Where every wall tells a colour story.",
+    title: "Berger Urban Exclusive Paints Store, Gorakhpur",
+    description: "Gorakhpur's trusted Berger Paints exclusive store.",
   },
 };
 

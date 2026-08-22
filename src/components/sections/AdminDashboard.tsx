@@ -151,7 +151,7 @@ export function AdminDashboard() {
                   <span className="h-8 w-8 rounded-lg paint-gradient grid place-items-center">
                     <TrendingUp className="h-4 w-4 text-white" />
                   </span>
-                  Chroma House Admin
+                  Berger Urban Exclusive Admin
                 </h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   Press <kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border text-[10px] font-mono">Esc</kbd> to close · <kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border text-[10px] font-mono">Ctrl+Shift+A</kbd> to toggle
