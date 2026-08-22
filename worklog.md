@@ -431,3 +431,85 @@ Task: Periodic QA + add custom paint cursor, palette explorer, service area sear
 6. **Color visualizer upload**: Let users upload their own room photo for the visualizer.
 7. **Awards badges SVG**: Could add more badge types or animated SVG paths.
 8. **Performance audit**: Run Lighthouse and optimize images (next/image with width/height).
+
+---
+Task ID: V5 (cron review round 5)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + add page loader, exit-intent newsletter popup, and save-quote-from-calculator feature with new API.
+
+## Current Project Status (start of round)
+- Site had 23 sections, 4 APIs (inquiry, newsletter, consultations + default route), 26 images.
+- All previously verified features stable: paint cursor, palette explorer, service area search, SVG award badges, press strip, structured data, hero gradient mesh.
+- No runtime errors; VLM scroll-transition artifacts are expected.
+
+## Goals / Completed Modifications
+
+### QA Findings (via agent-browser + VLM)
+- No runtime errors, no broken layouts, lint clean.
+- Console warning about scroll container position is cosmetic (framer-motion).
+- Hero phone contrast already fixed in prior rounds.
+- Counter mid-flight values in scroll screenshots are expected animation behavior.
+
+### New Sections & Components (3 new, ~1100 lines)
+1. **PageLoader** — Paint-splash reveal loader on first visit:
+   - Custom paint roller SVG that sweeps across screen
+   - Animated progress bar (0→100% over 1.6s) with paint-gradient fill
+   - 4 decorative paint splash blobs with spring scale/opacity animation
+   - Brand name "Chroma House" + tagline reveal
+   - sessionStorage guarded — only shows once per session (not on every route change)
+   - Auto-hides after progress completes + 500ms delay
+   - AnimatePresence exit fade
+2. **NewsletterPopup** — Exit-intent popup offering seasonal palette guide:
+   - Triggers on mouseleave (top of viewport) OR after 30s of inactivity
+   - sessionStorage guarded — only once per session
+   - Two-panel layout: paint-gradient visual side (with animated gift icon) + form side
+   - Form: name (optional) + email (required) with mail icon
+   - Submit → POST /api/newsletter with source "exit-popup" → success state with spring-animated checkmark
+   - Auto-closes after 4s on success
+   - "No thanks, I'll browse without the guide" dismiss link
+   - Activity-based timer reset (mousemove, scroll)
+3. **SaveQuote (in PaintCalculator)** — Email your estimate feature:
+   - "Save this estimate" button below the existing "Get exact quote" CTA
+   - Opens modal with paint-gradient header showing total + area + services + coats summary
+   - Form: name + email (required) + phone (optional)
+   - Submit → POST /api/save-quote (new API) → success state with spring checkmark
+   - Saves as Inquiry with status "quoted" and JSON-serialized breakdown in message field
+   - Auto-closes after 3s on success
+   - Toast notification confirms save
+
+### New API
+- **POST /api/save-quote** — Accepts quote data (email, name, phone, area, services[], coats, furniture, scaffolding, paintCost, prepCost, extras, subtotal, gst, total, perSqft). Creates an Inquiry record with status "quoted" and the full breakdown serialized in the message field for later retrieval.
+
+### Polish & Micro-interactions
+- **PageLoader paint roller** — Hand-crafted SVG with gradient roller body, texture lines, handle, and base
+- **NewsletterPopup gift icon** — Continuous rotate animation on the gift icon
+- **SaveQuote modal** — Paint-gradient header with noise texture, spring-animated success checkmark
+- **SessionStorage guards** — Both loader and popup only show once per session, avoiding user annoyance
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ PageLoader: shows on first visit with roller animation + progress, hides after ~2s, sessionStorage prevents re-showing (verified via eval)
+- ✅ NewsletterPopup: triggers on exit-intent mouseout, shows two-panel modal, submits to /api/newsletter successfully
+- ✅ SaveQuote: "Save this estimate" button opens modal, form fills work, submit → POST /api/save-quote 200 → "Estimate saved!" success with checkmark → auto-closes after 3s
+- ✅ SaveQuote DB verification: GET /api/inquiry shows new record with status "quoted", budget "₹35,088", name "Test User"
+- ✅ 4 API routes all functional: /api/inquiry, /api/newsletter, /api/consultations, /api/save-quote
+- ✅ No runtime errors in console
+- ✅ All previously verified features remain stable
+
+## Unresolved Issues / Risks
+- **PageLoader on session restore**: If a user has the loader-seen flag set but clears sessionStorage, the loader will show again — this is intended (fresh visit).
+- **NewsletterPopup exit-intent on mobile**: Mouseout doesn't fire on touch devices; the 30s inactivity timer is the fallback trigger.
+- **VLM scroll-transition artifacts**: Still present (expected).
+- **Counter mid-flight values**: Still present (expected animation behavior).
+- **"1 Issue" red badge**: Next.js dev-mode cross-origin preview warning — not a production issue.
+- **No automated tests**: All verification is manual via agent-browser + VLM.
+
+## Priority Recommendations for Next Phase
+1. **Lazy-load below-fold sections**: Use next/dynamic for sections below the fold (BlogTips, FAQ, BookingCalendar, Contact, Footer) to reduce initial JS bundle.
+2. **Multi-language (next-intl)**: Add English/Hindi/Bengali switching (already installed).
+3. **Blog detail pages**: Currently all blog links point to #blog — add real blog post routes.
+4. **Color visualizer upload**: Let users upload their own room photo for the visualizer.
+5. **Gallery video testimonials**: Embed short video clips.
+6. **Performance audit**: Run Lighthouse, optimize images with next/image.
+7. **A/B test popup triggers**: Test different offers (palette guide vs 10% off vs free visit).
+8. **Admin dashboard**: Build a simple admin route to view inquiries/bookings/quotes.

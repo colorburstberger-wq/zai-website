@@ -5,9 +5,12 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
   Calculator, Plus, Minus, RefreshCw, Sparkles, ArrowRight,
   Home, Building2, Brush, Droplets, Frame, ChevronRight, Check,
+  Save, Mail, Loader2, X,
 } from "lucide-react"
 import { Reveal, SectionHeading, Magnetic, Counter } from "@/components/motion/primitives"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
 
 type ServiceKey = "interior" | "exterior" | "texture" | "waterproofing" | "wood"
@@ -43,12 +46,19 @@ const formatINR = (n: number) =>
   "₹" + Math.round(n).toLocaleString("en-IN")
 
 export function PaintCalculator() {
+  const { toast } = useToast()
   const [area, setArea] = React.useState(1800)
   const [selected, setSelected] = React.useState<ServiceKey[]>(["interior"])
   const [coats, setCoats] = React.useState(2)
   const [furniture, setFurniture] = React.useState(false)
   const [scaffolding, setScaffolding] = React.useState(false)
   const [showResult, setShowResult] = React.useState(true)
+  const [saveOpen, setSaveOpen] = React.useState(false)
+  const [saveEmail, setSaveEmail] = React.useState("")
+  const [saveName, setSaveName] = React.useState("")
+  const [savePhone, setSavePhone] = React.useState("")
+  const [saving, setSaving] = React.useState(false)
+  const [saved, setSaved] = React.useState(false)
 
   const toggle = (k: ServiceKey) => {
     setSelected((s) => (s.includes(k) ? s.filter((x) => x !== k) : [...s, k]))
@@ -78,6 +88,55 @@ export function PaintCalculator() {
     setCoats(2)
     setFurniture(false)
     setScaffolding(false)
+  }
+
+  const saveQuote = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!saveEmail.includes("@")) {
+      toast({ title: "Enter a valid email", variant: "destructive" })
+      return
+    }
+    setSaving(true)
+    try {
+      const res = await fetch("/api/save-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: saveEmail,
+          name: saveName,
+          phone: savePhone,
+          area,
+          services: selected,
+          coats,
+          furniture,
+          scaffolding,
+          paintCost,
+          prepCost,
+          extras,
+          subtotal,
+          gst,
+          total,
+          perSqft,
+        }),
+      })
+      if (!res.ok) throw new Error()
+      setSaved(true)
+      toast({
+        title: "Quote saved! 🎨",
+        description: "We've emailed your estimate and a colour expert will follow up.",
+      })
+      setTimeout(() => {
+        setSaveOpen(false)
+        setSaved(false)
+        setSaveEmail("")
+        setSaveName("")
+        setSavePhone("")
+      }, 3000)
+    } catch {
+      toast({ title: "Could not save quote", variant: "destructive" })
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -366,6 +425,16 @@ export function PaintCalculator() {
                       </a>
                     </Button>
                   </Magnetic>
+
+                  {/* Save quote button */}
+                  <button
+                    onClick={() => setSaveOpen(true)}
+                    className="w-full mt-2 rounded-2xl border border-border/60 bg-secondary/40 hover:bg-secondary/70 transition py-2.5 text-sm font-medium flex items-center justify-center gap-2 group"
+                  >
+                    <Save className="h-3.5 w-3.5 text-primary group-hover:scale-110 transition-transform" />
+                    Save this estimate
+                  </button>
+
                   <p className="text-center text-[11px] text-muted-foreground">
                     Free site visit · No obligation · 10-year warranty
                   </p>
@@ -374,6 +443,127 @@ export function PaintCalculator() {
             </Reveal>
           </div>
         </div>
+
+        {/* Save quote modal */}
+        <AnimatePresence>
+          {saveOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSaveOpen(false)}
+              className="fixed inset-0 z-[150] grid place-items-center p-4 bg-black/60 backdrop-blur-sm"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-md rounded-3xl bg-card shadow-2xl border border-border/60 overflow-hidden"
+              >
+                <button
+                  onClick={() => setSaveOpen(false)}
+                  className="absolute top-4 right-4 z-10 h-9 w-9 rounded-full glass border border-border/60 grid place-items-center hover:bg-secondary transition"
+                  aria-label="Close"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+
+                <AnimatePresence mode="wait">
+                  {saved ? (
+                    <motion.div
+                      key="saved"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="p-8 text-center"
+                    >
+                      <motion.div
+                        initial={{ scale: 0, rotate: -30 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", stiffness: 200, damping: 12 }}
+                        className="h-20 w-20 rounded-full paint-gradient grid place-items-center mx-auto shadow-warm"
+                      >
+                        <Check className="h-10 w-10 text-white" strokeWidth={3} />
+                      </motion.div>
+                      <h3 className="font-display text-2xl font-bold mt-5">Estimate saved!</h3>
+                      <p className="text-muted-foreground mt-2 text-sm">
+                        We&apos;ve sent your <strong>{formatINR(total)}</strong> estimate to{" "}
+                        <strong>{saveEmail}</strong>. Our colour expert will follow up shortly.
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="form"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      {/* Header with estimate */}
+                      <div className="relative p-6 paint-gradient text-white">
+                        <div className="absolute inset-0 bg-noise opacity-15" />
+                        <div className="relative">
+                          <p className="text-[10px] uppercase tracking-widest text-white/80 flex items-center gap-1.5">
+                            <Save className="h-3 w-3" />
+                            Save your estimate
+                          </p>
+                          <p className="font-display text-3xl font-bold mt-1 tabular-nums">
+                            {formatINR(total)}
+                          </p>
+                          <p className="text-xs text-white/80 mt-0.5">
+                            {area.toLocaleString("en-IN")} sq ft · {selected.length} service{selected.length !== 1 ? "s" : ""} · {coats} coat{coats !== 1 ? "s" : ""}
+                          </p>
+                        </div>
+                      </div>
+
+                      <form onSubmit={saveQuote} className="p-6 space-y-3">
+                        <p className="text-sm text-muted-foreground">
+                          Enter your details — we&apos;ll email this estimate and a colour expert
+                          will follow up with a free site visit.
+                        </p>
+                        <Input
+                          type="text"
+                          value={saveName}
+                          onChange={(e) => setSaveName(e.target.value)}
+                          placeholder="Your name"
+                          className="h-11 rounded-xl"
+                        />
+                        <Input
+                          type="email"
+                          required
+                          value={saveEmail}
+                          onChange={(e) => setSaveEmail(e.target.value)}
+                          placeholder="you@email.com"
+                          className="h-11 rounded-xl"
+                        />
+                        <Input
+                          type="tel"
+                          value={savePhone}
+                          onChange={(e) => setSavePhone(e.target.value)}
+                          placeholder="Phone (optional)"
+                          className="h-11 rounded-xl"
+                        />
+                        <Button
+                          type="submit"
+                          disabled={saving}
+                          className="w-full h-11 rounded-xl paint-gradient text-white border-0 shadow-warm hover:opacity-90"
+                        >
+                          {saving ? (
+                            <><Loader2 className="h-4 w-4 mr-1.5 animate-spin" /> Saving...</>
+                          ) : (
+                            <><Mail className="h-4 w-4 mr-1.5" /> Email me this estimate</>
+                          )}
+                        </Button>
+                        <p className="text-[11px] text-muted-foreground text-center">
+                          We respect your privacy. No spam, ever.
+                        </p>
+                      </form>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   )

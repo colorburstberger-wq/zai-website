@@ -28,12 +28,16 @@ import { Footer } from "@/components/sections/Footer"
 import { ScrollToTop } from "@/components/sections/ScrollToTop"
 import { FloatingQuickActions, ScrollProgressBar } from "@/components/sections/FloatingQuickActions"
 import { PaintCursor } from "@/components/sections/PaintCursor"
+import { PageLoader } from "@/components/sections/PageLoader"
+import { NewsletterPopup } from "@/components/sections/NewsletterPopup"
 
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col bg-background overflow-x-hidden">
+      <PageLoader />
       <ScrollProgressBar />
       <PaintCursor />
+      <NewsletterPopup />
       <Navbar />
       <main className="flex-1">
         <Hero />
