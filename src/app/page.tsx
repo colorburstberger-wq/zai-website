@@ -11,6 +11,7 @@ import { PaintCalculator } from "@/components/sections/PaintCalculator"
 import { ColorVisualizer } from "@/components/sections/ColorVisualizer"
 import { ColorMoodQuiz } from "@/components/sections/ColorMoodQuiz"
 import { PaletteExplorer } from "@/components/sections/PaletteExplorer"
+import { ColorBank } from "@/components/sections/ColorBank"
 import { SeasonalTrends } from "@/components/sections/SeasonalTrends"
 import { Offers } from "@/components/sections/Offers"
 import { Products } from "@/components/sections/Products"
@@ -61,6 +62,7 @@ export default function Home() {
         <PaletteExplorer />
         <Offers />
         <Products />
+        <ColorBank />
         <Gallery />
         <BeforeAfter />
         <ProcessWhyUs />
