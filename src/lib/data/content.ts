@@ -182,7 +182,7 @@ export const PALETTE_SWATCHES = [
   { name: "Blush Petal", hex: "#E8C5C5", mood: "Gentle & romantic", category: "Soft" },
   { name: "Cinnamon Stick", hex: "#A0522D", mood: "Rich & spicy", category: "Warm" },
   { name: "Ocean Mist", hex: "#7BA7BC", mood: "Cool & restful", category: "Cool" },
-  { name: "Sand Dune", hex: "#D4B896", mood: "Timeless & clean", category: "Neutral" },
+  { name: "Sand Dune", hex: "#D4B896", mood: "Earthy & warm", category: "Neutral" },
 ]
 
 export const VISUALIZER_COLORS = [

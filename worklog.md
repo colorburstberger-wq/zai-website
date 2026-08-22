@@ -1068,3 +1068,48 @@ Task: Re-create recurring cron job + run manual QA cycle, fix visual defects.
 4. **Light variant logo**: For dark mode navbar, consider a light-background version
 5. **Add more Berger product details**: Specific Berger Color Bank shades, Berger XP range
 6. **Google Maps precise pin**: Use exact store coordinates instead of city center
+
+---
+Task ID: V13-CRON (Scheduled Review & Iteration)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + fix StickyCTA overlap, duplicate palette mood text, low-contrast category tags.
+
+## Current Project Status
+- Website fully corrected for real business (Berger Urban Exclusive Paints Store, Gorakhpur).
+- Real logo integrated. Navbar fixes from V12 applied. No runtime errors, lint clean.
+
+## QA Findings (via agent-browser + VLM)
+- **StickyCTA overlap**: Banner was positioned `bottom-6 left-1/2 -translate-x-1/2` (center bottom) which overlapped content cards (About section partnership text, Palette cards, Gallery cards).
+- **Duplicate mood text**: PALETTE_SWATCHES had "Timeless & clean" for both Ivory Cream (#F4E9D6) and Sand Dune (#D4B896) — copy-paste error.
+- **Low-contrast category tags**: PaletteExplorer category badges used `background: ${s.hex}22, color: s.hex` which on light colors (Ivory Cream, Linen White) was nearly invisible.
+- No runtime errors, lint clean.
+
+## Fixes Applied (3 files)
+
+**`src/components/sections/StickyCTA.tsx`** — Repositioned from center to bottom-right corner:
+- Changed from `fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-2xl` (center, wide)
+- To `fixed bottom-24 right-6 w-[calc(100%-3rem)] max-w-sm sm:max-w-md` (right corner, compact, above FAB at bottom-6)
+- VLM confirmed: now positioned at bottom-right
+
+**`src/lib/data/content.ts`** — Fixed duplicate mood text:
+- Sand Dune mood: "Timeless & clean" → "Earthy & warm" (now unique vs Ivory Cream's "Timeless & clean")
+
+**`src/components/sections/PaletteExplorer.tsx`** — Fixed low-contrast category tags:
+- Background opacity increased: `${s.hex}22` → `${s.hex}33` (darker tint)
+- Added border: `border` with `borderColor: ${s.hex}66` (visible outline on light swatches)
+- Font weight: `font-semibold` → `font-bold` (bolder text)
+- VLM confirmed: "category tags clearly visible with good contrast"
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ StickyCTA: repositioned to bottom-right corner (VLM confirmed)
+- ✅ Palette tags: VLM confirmed "clearly visible with good contrast"
+- ✅ Duplicate mood text fixed
+- ✅ No runtime errors in console
+
+## Priority Recommendations for Next Phase
+1. **Get real phone number**: Update SHOP.phone
+2. **Get real email**: Update SHOP.email
+3. **Regenerate team portraits**: Match new team member names
+4. **Light variant logo**: For dark mode
+5. **Add more Berger product details**: Berger XP range, Color Bank shades

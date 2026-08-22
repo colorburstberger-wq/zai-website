@@ -200,8 +200,8 @@ export function PaletteExplorer() {
                     <div className="flex items-center justify-between gap-2">
                       <h4 className="font-display text-sm font-bold truncate">{s.name}</h4>
                       <span
-                        className="rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider shrink-0"
-                        style={{ background: `${s.hex}22`, color: s.hex }}
+                        className="rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider shrink-0 border"
+                        style={{ background: `${s.hex}33`, color: s.hex, borderColor: `${s.hex}66` }}
                       >
                         {s.category}
                       </span>

@@ -50,7 +50,7 @@ export function StickyCTA() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 120, opacity: 0 }}
           transition={{ type: "spring", stiffness: 200, damping: 26 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-3rem)] max-w-2xl"
+          className="fixed bottom-24 right-6 z-40 w-[calc(100%-3rem)] max-w-sm sm:max-w-md"
         >
           <div className="relative rounded-2xl paint-gradient text-white shadow-2xl border border-white/20 overflow-hidden">
             <div className="absolute inset-0 bg-noise opacity-15" />
