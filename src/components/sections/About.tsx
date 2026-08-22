@@ -1,9 +1,15 @@
 "use client"
 
+import * as React from "react"
 import { motion } from "framer-motion"
-import { CheckCircle2, Quote, MapPin, Calendar, Award } from "lucide-react"
+import { CheckCircle2, Quote, MapPin, Calendar, Award, Home, Sparkles, Heart, ArrowRight } from "lucide-react"
 import { Reveal, SectionHeading, Counter, PaintStrokeDivider } from "@/components/motion/primitives"
 import { STATS, SHOP } from "@/lib/data/content"
+import { cn } from "@/lib/utils"
+
+const STAT_ICONS: Record<string, typeof Home> = {
+  Home, Award, Sparkles, Heart,
+}
 
 const HIGHLIGHTS = [
   "Authorised dealer since 2009",
@@ -143,31 +149,91 @@ export function About() {
           </div>
         </div>
 
-        {/* Stats row */}
+        {/* Stats row with 3D flip cards */}
         <div className="mt-16 sm:mt-24">
+          <p className="text-center text-[11px] uppercase tracking-widest text-muted-foreground mb-4">
+            ✦ Hover any card to see more ✦
+          </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {STATS.map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: i * 0.08 }}
-                whileHover={{ y: -4 }}
-                className="relative group rounded-2xl border border-border/60 bg-card p-6 text-center overflow-hidden"
-              >
-                <div className="absolute inset-0 paint-gradient-soft opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative">
-                  <p className="font-display text-4xl sm:text-5xl font-bold text-gradient-warm">
-                    <Counter to={s.value} suffix={s.suffix} />
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
-                </div>
-              </motion.div>
+              <FlipStatCard key={s.label} stat={s} index={i} />
             ))}
           </div>
         </div>
       </div>
     </section>
+  )
+}
+
+interface StatData {
+  value: number
+  suffix: string
+  label: string
+  back: string
+  icon: string
+}
+
+function FlipStatCard({ stat, index }: { stat: StatData; index: number }) {
+  const [flipped, setFlipped] = React.useState(false)
+  const Icon = STAT_ICONS[stat.icon] ?? Home
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay: index * 0.08 }}
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+      onClick={() => setFlipped((f) => !f)}
+      className="relative h-36 sm:h-40 cursor-pointer"
+      style={{ perspective: 1000 }}
+    >
+      <motion.div
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full h-full"
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {/* Front */}
+        <div
+          className={cn(
+            "absolute inset-0 rounded-2xl border border-border/60 bg-card p-6 text-center overflow-hidden shadow-card",
+            "flex flex-col items-center justify-center"
+          )}
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+        >
+          <div className="absolute inset-0 paint-gradient-soft opacity-0 hover:opacity-100 transition-opacity" />
+          <div className="relative">
+            <div className="h-9 w-9 rounded-xl paint-gradient grid place-items-center mx-auto mb-2 shadow-warm">
+              <Icon className="h-4 w-4 text-white" />
+            </div>
+            <p className="font-display text-3xl sm:text-4xl font-bold text-gradient-warm tabular-nums">
+              <Counter to={stat.value} suffix={stat.suffix} />
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">{stat.label}</p>
+          </div>
+        </div>
+        {/* Back */}
+        <div
+          className="absolute inset-0 rounded-2xl paint-gradient text-white p-5 flex flex-col items-center justify-center shadow-warm overflow-hidden"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}
+        >
+          <div className="absolute inset-0 bg-noise opacity-15" />
+          <div className="relative text-center">
+            <Icon className="h-6 w-6 mx-auto mb-2 opacity-80" />
+            <p className="font-display text-sm font-bold leading-tight">{stat.label}</p>
+            <p className="text-xs text-white/90 mt-2 text-pretty">{stat.back}</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/70 mt-3 flex items-center justify-center gap-1">
+              <ArrowRight className="h-2.5 w-2.5" /> Hover to flip back
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   )
 }

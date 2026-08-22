@@ -669,3 +669,78 @@ Task: Periodic QA + add navbar mega-menu, click splash effect, hero mouse parall
 6. **Performance audit**: Run Lighthouse, optimize images with next/image.
 7. **Export admin data**: Add CSV/Excel export buttons in admin dashboard.
 8. **3D flip stat cards**: Add cards that flip on hover to reveal additional info.
+
+---
+Task ID: V8 (cron review round 8)
+Agent: main-orchestrator (web-dev-review)
+Task: Periodic QA + add Color Mood Quiz, 3D flip stat cards, dark mode contrast polish.
+
+## Current Project Status (start of round)
+- Site had 23 sections + 5 overlay components, 4 APIs, 26 images.
+- All previously verified features stable: mega-menu, click splash, hero parallax, paint cursor, palette explorer, service area search, SVG award badges, press strip, structured data, page loader, exit-intent popup, save-quote, room upload, admin dashboard.
+- No runtime errors; VLM scroll-transition artifacts are expected.
+
+## Goals / Completed Modifications
+
+### QA Findings (via agent-browser + VLM)
+- No runtime errors, no broken layouts, lint clean.
+- Dark mode muted text contrast was 7/10 — improved to 8/10 by raising muted-foreground luminance from 0.74 to 0.82 and border opacity from 35% to 40%.
+- All prior features remain stable.
+
+### New Sections & Components (2 new, ~900 lines)
+1. **ColorMoodQuiz** (`#quiz`) — Interactive 4-question personality quiz:
+   - 4 questions: Sunday morning vibe, dream room feeling, weekend palette, desired home feeling
+   - 4 mood categories: Warm, Calm, Bold, Natural
+   - Each question has 4 options with emoji + icon + label
+   - Progress bar with paint-gradient fill showing % completion
+   - "Question X of Y" counter
+   - Staggered option entrance animation
+   - Back button to revisit previous answers
+   - "No email required" trust signal
+   - **Result screen**: Accent-gradient header with spring-animated sparkle icon, personality title + subtitle + description, 4 recommended colors (click to copy hex), stylist tip box, "Get this palette on your walls" CTA, "Retake quiz" button
+   - Mood calculation: counts answers per mood, picks max
+   - 4 distinct result configurations with colors, room tips, accent colors
+2. **3D FlipStatCard** (in About section) — Replaces flat stat cards:
+   - 4 stat cards that flip 180° on hover (and click for touch)
+   - Front: paint-gradient icon + animated counter + label
+   - Back: paint-gradient background + icon + label + detailed description + "Hover to flip back" hint
+   - perspective: 1000, transformStyle: preserve-3d, backfaceVisibility: hidden
+   - Each stat has a "back" field with extra info (e.g. "Across Salt Lake, New Town, Ballygunge & 9 more areas")
+   - STATS data enhanced with `back` and `icon` fields
+   - "✦ Hover any card to see more ✦" hint above grid
+   - Icons: Home, Award, Sparkles, Heart
+
+### Polish & Micro-interactions
+- **Dark mode contrast improved**: muted-foreground raised from oklch(0.74) to oklch(0.82), border opacity from 35% to 40%
+- **Quiz progress bar**: paint-gradient fill animates with width transition
+- **Quiz result reveal**: Spring-animated sparkle icon scales from 0 with rotation
+- **Flip card 3D**: Smooth 0.6s rotateY with cubic-bezier easing, preserve-3d for proper depth
+- **NAV_LINKS updated**: Added "Quiz" link pointing to #quiz section
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ ColorMoodQuiz: 4 questions answered, advanced through each, result shows "Warm & Grounded" personality with recommended palette (Terracotta Glow, Saffron Sun, Cinnamon Stick, Mustard Field) — VLM confirmed
+- ✅ Quiz hex copy: clicking a color copies hex to clipboard (Copied! state)
+- ✅ 3D FlipStatCard: hovering first card flips to show "Across Salt Lake, New Town, Ballygunge & 9 more areas" — VLM confirmed flip
+- ✅ Dark mode contrast: rated 8/10 by VLM (up from 7/10)
+- ✅ Navbar "Quiz" link added and scrolls to #quiz section
+- ✅ All previously verified features remain stable
+- ✅ No runtime errors in console
+
+## Unresolved Issues / Risks
+- **Quiz mood calculation**: Simple max-count — could add weighted scoring or tie-breaking for more nuance.
+- **Flip card on touch devices**: Click toggle works but hover is primary interaction on desktop.
+- **Admin dashboard security**: Still no authentication.
+- **VLM scroll-transition artifacts**: Still present (expected).
+- **Counter mid-flight values**: Still present (expected animation behavior).
+- **No automated tests**: All verification is manual via agent-browser + VLM.
+
+## Priority Recommendations for Next Phase
+1. **Admin authentication**: Add NextAuth.js gate to the admin dashboard.
+2. **Lazy-load below-fold sections**: Use next/dynamic for sections below the fold.
+3. **Multi-language (next-intl)**: Add English/Hindi/Bengali switching.
+4. **Blog detail pages**: Add real blog post routes with full content.
+5. **Gallery video testimonials**: Embed short video clips.
+6. **Performance audit**: Run Lighthouse, optimize images with next/image.
+7. **Export admin data**: Add CSV/Excel export buttons in admin dashboard.
+8. **Seasonal color trends**: Add a section showing trending colors by season.

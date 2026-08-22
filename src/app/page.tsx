@@ -9,6 +9,7 @@ import { BrandSpotlight } from "@/components/sections/BrandSpotlight"
 import { Services } from "@/components/sections/Services"
 import { PaintCalculator } from "@/components/sections/PaintCalculator"
 import { ColorVisualizer } from "@/components/sections/ColorVisualizer"
+import { ColorMoodQuiz } from "@/components/sections/ColorMoodQuiz"
 import { PaletteExplorer } from "@/components/sections/PaletteExplorer"
 import { Offers } from "@/components/sections/Offers"
 import { Products } from "@/components/sections/Products"
@@ -52,6 +53,7 @@ export default function Home() {
         <Services />
         <PaintCalculator />
         <ColorVisualizer />
+        <ColorMoodQuiz />
         <PaletteExplorer />
         <Offers />
         <Products />

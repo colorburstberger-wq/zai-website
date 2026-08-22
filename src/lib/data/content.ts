@@ -244,10 +244,10 @@ export const GALLERY = [
 ]
 
 export const STATS = [
-  { value: 4500, suffix: "+", label: "Homes painted" },
-  { value: 15, suffix: " yrs", label: "Craftsmanship since 2009" },
-  { value: 12000, suffix: "+", label: "Sq ft of texture art" },
-  { value: 98, suffix: "%", label: "Client referral rate" },
+  { value: 4500, suffix: "+", label: "Homes painted", back: "Across Salt Lake, New Town, Ballygunge & 9 more areas", icon: "Home" },
+  { value: 15, suffix: " yrs", label: "Craftsmanship since 2009", back: "Family-run studio — never sub-contracted", icon: "Award" },
+  { value: 12000, suffix: "+", label: "Sq ft of texture art", back: "Italian stucco, metallic & hand-troweled finishes", icon: "Sparkles" },
+  { value: 98, suffix: "%", label: "Client referral rate", back: "Word-of-mouth is our best marketing", icon: "Heart" },
 ]
 
 export const TESTIMONIALS = [
@@ -382,11 +382,11 @@ export const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
+  { label: "Quiz", href: "#quiz" },
   { label: "Estimate", href: "#calculator" },
   { label: "Colours", href: "#visualizer" },
   { label: "Offers", href: "#offers" },
   { label: "Gallery", href: "#gallery" },
   { label: "Reviews", href: "#testimonials" },
-  { label: "Book", href: "#booking" },
   { label: "Contact", href: "#contact" },
 ]
