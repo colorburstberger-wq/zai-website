@@ -43,6 +43,19 @@ export function Hero() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/images/hero-bg.png')" }}
         />
+        {/* Animated gradient mesh overlay */}
+        <motion.div
+          animate={{
+            background: [
+              "radial-gradient(circle at 20% 30%, color-mix(in oklch, var(--paint-coral) 18%, transparent), transparent 50%), radial-gradient(circle at 80% 70%, color-mix(in oklch, var(--paint-saffron) 18%, transparent), transparent 50%)",
+              "radial-gradient(circle at 70% 30%, color-mix(in oklch, var(--paint-saffron) 18%, transparent), transparent 50%), radial-gradient(circle at 30% 80%, color-mix(in oklch, var(--paint-sage) 18%, transparent), transparent 50%)",
+              "radial-gradient(circle at 50% 50%, color-mix(in oklch, var(--paint-rose) 18%, transparent), transparent 50%), radial-gradient(circle at 90% 20%, color-mix(in oklch, var(--paint-mustard) 18%, transparent), transparent 50%)",
+              "radial-gradient(circle at 20% 30%, color-mix(in oklch, var(--paint-coral) 18%, transparent), transparent 50%), radial-gradient(circle at 80% 70%, color-mix(in oklch, var(--paint-saffron) 18%, transparent), transparent 50%)",
+            ],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0"
+        />
         <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/70 to-background/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
       </motion.div>

@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
-import { MapPin, Clock, Navigation, Check, Phone } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { MapPin, Clock, Navigation, Check, Phone, Search, Sparkles, X } from "lucide-react"
 import { Reveal, SectionHeading, Magnetic } from "@/components/motion/primitives"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { SHOP } from "@/lib/data/content"
 import { cn } from "@/lib/utils"
 
@@ -32,7 +33,19 @@ const AREAS: Area[] = [
 
 export function ServiceArea() {
   const [hovered, setHovered] = React.useState<string | null>("Lake Town")
+  const [query, setQuery] = React.useState("")
   const activeArea = AREAS.find((a) => a.name === hovered) ?? AREAS[0]
+
+  const filtered = React.useMemo(() => {
+    if (!query.trim()) return AREAS
+    const q = query.toLowerCase().trim()
+    return AREAS.filter((a) => a.name.toLowerCase().includes(q))
+  }, [query])
+
+  const exactMatch = query.trim().length > 1 && AREAS.some((a) =>
+    a.name.toLowerCase() === query.toLowerCase().trim()
+  )
+  const partialMatch = query.trim().length > 1 && filtered.length > 0
 
   return (
     <section id="areas" className="relative py-20 sm:py-28 bg-secondary/30 overflow-hidden">
@@ -98,7 +111,7 @@ export function ServiceArea() {
             </div>
           </Reveal>
 
-          {/* Areas list */}
+          {/* Areas list with search */}
           <div className="lg:col-span-5 flex flex-col gap-3">
             <Reveal delay={0.1}>
               <div className="rounded-3xl border border-border/60 bg-card p-5 shadow-card">
@@ -107,11 +120,75 @@ export function ServiceArea() {
                     Areas we serve
                   </h4>
                   <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                    {AREAS.length} locations
+                    {filtered.length} of {AREAS.length}
                   </span>
                 </div>
+
+                {/* Search input */}
+                <div className="relative mb-3">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                  <Input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search your area — e.g. Salt Lake"
+                    className="pl-10 pr-9 h-10 rounded-xl bg-secondary/50 border-border/60 focus-visible:bg-card"
+                  />
+                  {query && (
+                    <button
+                      onClick={() => setQuery("")}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 h-6 w-6 rounded-full grid place-items-center hover:bg-background text-muted-foreground hover:text-foreground transition"
+                      aria-label="Clear search"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Search result banner */}
+                <AnimatePresence>
+                  {query.trim().length > 1 && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden mb-3"
+                    >
+                      {exactMatch || partialMatch ? (
+                        <div className="rounded-xl bg-paint-sage/15 border border-paint-sage/40 px-3 py-2 flex items-center gap-2">
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                            className="h-6 w-6 rounded-full bg-paint-sage grid place-items-center shrink-0"
+                          >
+                            <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+                          </motion.div>
+                          <p className="text-xs font-semibold text-foreground">
+                            {exactMatch ? "Yes! We serve" : "We serve:"}{" "}
+                            <span className="text-paint-sage">
+                              {exactMatch ? query.trim() : filtered.map((a) => a.name).join(", ")}
+                            </span>
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="rounded-xl bg-secondary border border-border/60 px-3 py-2 flex items-center gap-2">
+                          <Sparkles className="h-4 w-4 text-paint-saffron shrink-0" />
+                          <p className="text-xs text-muted-foreground">
+                            Not listed? We still cover greater Kolkata —{" "}
+                            <a href="#contact" className="font-semibold text-primary hover:underline">
+                              ask us
+                            </a>
+                            .
+                          </p>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Areas grid */}
                 <div className="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto scrollbar-thin pr-1">
-                  {AREAS.map((a, i) => (
+                  {filtered.map((a, i) => (
                     <motion.button
                       key={a.name}
                       onMouseEnter={() => setHovered(a.name)}
@@ -140,6 +217,11 @@ export function ServiceArea() {
                     </motion.button>
                   ))}
                 </div>
+                {filtered.length === 0 && (
+                  <p className="text-center text-sm text-muted-foreground py-6">
+                    No areas match &ldquo;{query}&rdquo; — try &ldquo;Salt Lake&rdquo; or &ldquo;New Town&rdquo;.
+                  </p>
+                )}
               </div>
             </Reveal>
 

@@ -1,14 +1,15 @@
 "use client"
 
-import dynamic from "next/dynamic"
 import { Navbar } from "@/components/sections/Navbar"
 import { Hero } from "@/components/sections/Hero"
 import { BrandMarquee } from "@/components/sections/BrandMarquee"
+import { PressStrip } from "@/components/sections/PressStrip"
 import { About } from "@/components/sections/About"
 import { BrandSpotlight } from "@/components/sections/BrandSpotlight"
 import { Services } from "@/components/sections/Services"
 import { PaintCalculator } from "@/components/sections/PaintCalculator"
 import { ColorVisualizer } from "@/components/sections/ColorVisualizer"
+import { PaletteExplorer } from "@/components/sections/PaletteExplorer"
 import { Offers } from "@/components/sections/Offers"
 import { Products } from "@/components/sections/Products"
 import { Gallery } from "@/components/sections/Gallery"
@@ -16,7 +17,7 @@ import { BeforeAfter } from "@/components/sections/BeforeAfter"
 import { ProcessWhyUs } from "@/components/sections/ProcessWhyUs"
 import { ComparisonTable } from "@/components/sections/ComparisonTable"
 import { Team } from "@/components/sections/Team"
-import { Awards } from "@/components/sections/Awards"
+import { AwardBadges } from "@/components/sections/AwardBadges"
 import { ServiceArea } from "@/components/sections/ServiceArea"
 import { Testimonials } from "@/components/sections/Testimonials"
 import { BlogTips } from "@/components/sections/BlogTips"
@@ -26,20 +27,24 @@ import { Contact } from "@/components/sections/Contact"
 import { Footer } from "@/components/sections/Footer"
 import { ScrollToTop } from "@/components/sections/ScrollToTop"
 import { FloatingQuickActions, ScrollProgressBar } from "@/components/sections/FloatingQuickActions"
+import { PaintCursor } from "@/components/sections/PaintCursor"
 
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col bg-background overflow-x-hidden">
       <ScrollProgressBar />
+      <PaintCursor />
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <PressStrip />
         <BrandMarquee />
         <About />
         <BrandSpotlight />
         <Services />
         <PaintCalculator />
         <ColorVisualizer />
+        <PaletteExplorer />
         <Offers />
         <Products />
         <Gallery />
@@ -47,7 +52,7 @@ export default function Home() {
         <ProcessWhyUs />
         <ComparisonTable />
         <Team />
-        <Awards />
+        <AwardBadges />
         <ServiceArea />
         <Testimonials />
         <BlogTips />

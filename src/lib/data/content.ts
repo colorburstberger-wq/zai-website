@@ -163,18 +163,22 @@ export const PRODUCTS = [
 ]
 
 export const PALETTE_SWATCHES = [
-  { name: "Terracotta Glow", hex: "#E0623A", mood: "Warm & grounding" },
-  { name: "Saffron Sun", hex: "#F2A93B", mood: "Bright & joyful" },
-  { name: "Mustard Field", hex: "#D9A441", mood: "Earthy & bold" },
-  { name: "Clay Hut", hex: "#B65C3F", mood: "Rustic & cozy" },
-  { name: "Sage Garden", hex: "#8FA68E", mood: "Calm & natural" },
-  { name: "Rose Quartz", hex: "#D98C8C", mood: "Soft & elegant" },
-  { name: "Teal Lagoon", hex: "#4C8C8C", mood: "Cool & restful" },
-  { name: "Ivory Cream", hex: "#F4E9D6", mood: "Timeless & clean" },
-  { name: "Charcoal Slate", hex: "#3B3A36", mood: "Moody & modern" },
-  { name: "Paprika Spice", hex: "#B23A1B", mood: "Spicy & energetic" },
-  { name: "Linen White", hex: "#F2EAD3", mood: "Airy & pure" },
-  { name: "Forest Pine", hex: "#3F5C3A", mood: "Deep & serene" },
+  { name: "Terracotta Glow", hex: "#E0623A", mood: "Warm & grounding", category: "Warm" },
+  { name: "Saffron Sun", hex: "#F2A93B", mood: "Bright & joyful", category: "Warm" },
+  { name: "Mustard Field", hex: "#D9A441", mood: "Earthy & bold", category: "Warm" },
+  { name: "Clay Hut", hex: "#B65C3F", mood: "Rustic & cozy", category: "Warm" },
+  { name: "Sage Garden", hex: "#8FA68E", mood: "Calm & natural", category: "Calm" },
+  { name: "Rose Quartz", hex: "#D98C8C", mood: "Soft & elegant", category: "Soft" },
+  { name: "Teal Lagoon", hex: "#4C8C8C", mood: "Cool & restful", category: "Cool" },
+  { name: "Ivory Cream", hex: "#F4E9D6", mood: "Timeless & clean", category: "Neutral" },
+  { name: "Charcoal Slate", hex: "#3B3A36", mood: "Moody & modern", category: "Bold" },
+  { name: "Paprika Spice", hex: "#B23A1B", mood: "Spicy & energetic", category: "Bold" },
+  { name: "Linen White", hex: "#F2EAD3", mood: "Airy & pure", category: "Neutral" },
+  { name: "Forest Pine", hex: "#3F5C3A", mood: "Deep & serene", category: "Cool" },
+  { name: "Blush Petal", hex: "#E8C5C5", mood: "Gentle & romantic", category: "Soft" },
+  { name: "Cinnamon Stick", hex: "#A0522D", mood: "Rich & spicy", category: "Warm" },
+  { name: "Ocean Mist", hex: "#7BA7BC", mood: "Cool & restful", category: "Cool" },
+  { name: "Sand Dune", hex: "#D4B896", mood: "Timeless & clean", category: "Neutral" },
 ]
 
 export const VISUALIZER_COLORS = [
