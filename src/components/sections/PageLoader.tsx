@@ -61,33 +61,17 @@ export function PageLoader() {
           />
 
           <div className="relative flex flex-col items-center gap-6">
-            {/* Roller SVG */}
+            {/* Real brand logo */}
             <motion.div
-              animate={{ x: [-180, 180, -180], rotate: [0, 5, -5, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              className="relative"
+              animate={{ scale: [1, 1.05, 1], rotate: [0, 2, -2, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="relative h-20 w-20 rounded-2xl overflow-hidden shadow-warm border-2 border-border/40"
             >
-              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                {/* Roller handle */}
-                <rect x="36" y="38" width="8" height="28" rx="2" fill="var(--paint-clay)" />
-                <rect x="30" y="64" width="20" height="6" rx="2" fill="var(--paint-clay)" />
-                {/* Roller body */}
-                <rect x="8" y="20" width="56" height="20" rx="4" fill="url(#roller-grad)" />
-                {/* Roller texture lines */}
-                <line x1="16" y1="20" x2="16" y2="40" stroke="white" strokeWidth="1" opacity="0.4" />
-                <line x1="24" y1="20" x2="24" y2="40" stroke="white" strokeWidth="1" opacity="0.4" />
-                <line x1="32" y1="20" x2="32" y2="40" stroke="white" strokeWidth="1" opacity="0.4" />
-                <line x1="40" y1="20" x2="40" y2="40" stroke="white" strokeWidth="1" opacity="0.4" />
-                <line x1="48" y1="20" x2="48" y2="40" stroke="white" strokeWidth="1" opacity="0.4" />
-                <line x1="56" y1="20" x2="56" y2="40" stroke="white" strokeWidth="1" opacity="0.4" />
-                <defs>
-                  <linearGradient id="roller-grad" x1="8" y1="20" x2="64" y2="40">
-                    <stop offset="0%" stopColor="var(--paint-coral)" />
-                    <stop offset="50%" stopColor="var(--paint-saffron)" />
-                    <stop offset="100%" stopColor="var(--paint-mustard)" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <img
+                src="/images/brand-logo.svg"
+                alt="Berger Urban Exclusive Paints Store logo"
+                className="h-full w-full object-cover"
+              />
             </motion.div>
 
             {/* Brand */}

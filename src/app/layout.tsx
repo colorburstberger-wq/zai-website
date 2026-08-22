@@ -42,6 +42,10 @@ export const metadata: Metadata = {
     "Taramandal Gorakhpur paint shop",
   ],
   authors: [{ name: "Berger Urban Exclusive Paints Store" }],
+  icons: {
+    icon: "/images/brand-logo.svg",
+    apple: "/images/brand-logo.svg",
+  },
   openGraph: {
     title: "Berger Urban Exclusive Paints Store, Gorakhpur",
     description:

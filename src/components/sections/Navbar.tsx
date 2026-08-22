@@ -89,10 +89,13 @@ export function Navbar() {
           {/* Logo */}
           <Link href="#home" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 paint-gradient rounded-xl blur-md opacity-50 group-hover:opacity-80 transition-opacity" />
-              <div className="relative h-10 w-10 rounded-xl paint-gradient grid place-items-center shadow-warm overflow-hidden">
-                <Palette className="h-5 w-5 text-white" strokeWidth={2.5} />
-                <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-white animate-pulse-ring" />
+              <div className="absolute inset-0 paint-gradient rounded-xl blur-md opacity-40 group-hover:opacity-70 transition-opacity" />
+              <div className="relative h-11 w-11 rounded-xl overflow-hidden shadow-warm border border-border/40">
+                <img
+                  src="/images/brand-logo.svg"
+                  alt="Berger Urban Exclusive Paints Store logo"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
               </div>
             </div>
             <div className="flex flex-col leading-none">

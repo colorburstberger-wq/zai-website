@@ -952,3 +952,50 @@ Task: Deep analysis of user's GMB profile and correction of every fictional busi
 4. **Verify Google Maps embed**: Ensure the embed centers on the actual store location.
 5. **Add real GMB review snippets**: Pull actual Google reviews if accessible via API.
 6. **Update logo**: Generate a custom Berger Urban Exclusive logo (currently using the AI-generated Chroma House logo).
+
+---
+Task ID: V11-LOGO (Logo Integration)
+Agent: main-orchestrator
+Task: Integrate user's real uploaded logo (logo (1).svg) into the website, replacing the placeholder Palette icon.
+
+## Current Project Status
+- User uploaded their real business logo as `logo (1).svg` to `/home/z/my-project/upload/`.
+- The website was using a placeholder Palette icon (lucide-react) in a paint-gradient box for the brand logo in Navbar, Footer, and PageLoader.
+- The favicon was set to the Z.ai default logo.
+
+## Goals / Completed Modifications
+
+### Logo File
+- Copied `upload/logo (1).svg` → `public/images/brand-logo.svg`
+- SVG is 1024x1040, dark background (#0B0A0F) with detailed brand design (visible "UC" monogram)
+- File size: 219KB
+
+### Files Updated (4 files):
+
+1. **`src/components/sections/Navbar.tsx`** — Replaced Palette icon + paint-gradient box with real logo image in a rounded container with border and shadow-warm
+2. **`src/components/sections/Footer.tsx`** — Replaced Palette icon + paint-gradient box with real logo image in a rounded container with white/20 border (for dark footer background)
+3. **`src/components/sections/PageLoader.tsx`** — Replaced the custom paint roller SVG animation with the real brand logo in a rounded container with subtle scale/rotate animation
+4. **`src/app/layout.tsx`** — Added `icons` to metadata pointing to `/images/brand-logo.svg` for both icon and apple touch icon (favicon)
+
+### Also Created:
+- **`src/components/BrandLogo.tsx`** — Reusable BrandLogo component with size/variant props (available for future use if needed)
+
+## Verification Results
+- ✅ Lint clean (`bun run lint` — 0 errors, 0 warnings)
+- ✅ Navbar logo: VLM confirmed "black circular icon containing white letters UC" — real logo displaying correctly
+- ✅ Footer logo: displaying with visible border separation against dark background
+- ✅ PageLoader: brand logo visible in center of loading screen with animation
+- ✅ Favicon: set to `/images/brand-logo.svg` (verified via DOM eval)
+- ✅ Page title: "Berger Urban Exclusive Paints Store, Gorakhpur | Authorised Berger Paints Dealer"
+- ✅ No runtime errors
+
+## Unresolved Issues / Risks
+- **Logo dark background**: The SVG has a dark (#0B0A0F) background which works well on light backgrounds (navbar in light mode) but may blend into dark backgrounds (footer, dark mode navbar). The footer has a border-white/20 to help separate it. In dark mode, the navbar logo's dark background is fine since it's in a bordered container.
+- **Logo aspect ratio**: The SVG is 1024x1040 (nearly square). Using object-cover in a square container works well.
+- **Favicon SVG support**: Most modern browsers support SVG favicons. For older browsers, a PNG fallback could be added.
+
+## Priority Recommendations for Next Phase
+1. **Get real phone number**: Update SHOP.phone with the actual phone number from GMB.
+2. **Get real email**: Update SHOP.email with the actual email.
+3. **Light variant logo**: For dark mode navbar and footer, consider creating a light-background version of the logo for better contrast.
+4. **PNG favicon fallback**: Add a 32x32 PNG favicon for older browser support.

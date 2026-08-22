@@ -109,8 +109,12 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-2 lg:col-span-4">
             <Link href="#home" className="flex items-center gap-3 group">
-              <div className="h-11 w-11 rounded-xl paint-gradient grid place-items-center shadow-warm">
-                <Palette className="h-5 w-5 text-white" strokeWidth={2.5} />
+              <div className="h-12 w-12 rounded-xl overflow-hidden shadow-warm border border-white/20">
+                <img
+                  src="/images/brand-logo.svg"
+                  alt="Berger Urban Exclusive Paints Store logo"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div>
                 <p className="font-display text-xl font-bold">
