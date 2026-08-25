@@ -1178,3 +1178,37 @@ Task: Periodic QA + add Berger Color Bank shade showcase section (unique Urban E
 3. **Light variant logo**: For dark mode navbar/footer
 4. **Add ColorBank to mega-menu**: Link from Services dropdown
 5. **Real Color Bank shade data**: Could pull actual Berger Color Bank shade catalog if available
+
+---
+
+## Task: IMG-ROOMS — Generate 3 Clean Room Photos for Paint Visualizer
+
+**Date:** 2025-08-25
+**Task ID:** IMG-ROOMS
+**Tool:** z-ai CLI (`z-ai image`)
+
+### Purpose
+Generate 3 reference room images with CLEAR, DISTINCT wall surfaces that are easy to trace with SVG paths for the paint visualizer (ColorVisualizer section).
+
+### Files Generated (all in `/home/z/my-project/public/images/`)
+| File | Dimensions | Size | Description |
+|------|-----------|------|-------------|
+| `room-interior.png` | 1344x768 | 71,796 bytes (~70 KB) | Minimalist living room, corner angle — back wall (right), left wall (left), ceiling, simple sofa, off-white walls, even lighting |
+| `room-exterior.png` | 1344x768 | 78,622 bytes (~77 KB) | Modern house exterior, front corner view — two flat off-white walls meeting at corner, visible roof line, simple rectangular geometry |
+| `room-kitchen.png` | 1344x768 | 64,834 bytes (~63 KB) | Modern kitchen straight-on — back wall above counters, upper cabinets as horizontal boundary, countertop boundary layer |
+
+### Verification
+- ✅ All 3 files exist at expected paths
+- ✅ All 3 files >20 KB threshold (min ~63 KB, max ~77 KB)
+- ✅ All 3 files at correct resolution (1344x768)
+- ✅ Generated via `z-ai image --prompt "..." --output "..." --size 1344x768`
+
+### Design Notes for SVG Tracing
+- **Living room**: Two-wall corner composition — ideal for showing two distinct paint colors meeting at a corner
+- **Exterior**: Front + side facade — useful for demonstrating exterior paint schemes
+- **Kitchen**: Wall/cabinet/countertop boundary zones — enables multi-zone recoloring (upper wall vs. lower wall)
+
+### Next Actions
+- Use these images as base layers in the ColorVisualizer component
+- Overlay SVG paths tracing wall surfaces for each room
+- Apply `fill` with `mix-blend-mode: multiply` for realistic paint color simulation
