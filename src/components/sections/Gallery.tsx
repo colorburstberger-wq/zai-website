@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MapPin, Calendar, X } from "lucide-react"
 import { Reveal, SectionHeading, Magnetic } from "@/components/motion/primitives"
+import { FloatingSwatches } from "@/components/sections/FloatingSwatches"
 import { Button } from "@/components/ui/button"
 import { GALLERY } from "@/lib/data/content"
 
@@ -16,7 +17,8 @@ export function Gallery() {
   const items = GALLERY.filter((g) => cat === "All" || g.category === cat)
 
   return (
-    <section id="gallery" className="relative py-20 sm:py-28 bg-secondary/30">
+    <section id="gallery" className="relative py-20 sm:py-28 bg-secondary/30 overflow-hidden">
+      <FloatingSwatches />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           kicker="Recent transformations"

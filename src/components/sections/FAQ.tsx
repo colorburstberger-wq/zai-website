@@ -4,13 +4,15 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Plus, Minus, HelpCircle } from "lucide-react"
 import { Reveal, SectionHeading } from "@/components/motion/primitives"
+import { FloatingSwatches } from "@/components/sections/FloatingSwatches"
 import { FAQS } from "@/lib/data/content"
 
 export function FAQ() {
   const [open, setOpen] = React.useState<number | null>(0)
 
   return (
-    <section id="faq" className="relative py-20 sm:py-28">
+    <section id="faq" className="relative py-20 sm:py-28 overflow-hidden">
+      <FloatingSwatches />
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           kicker="Good to know"

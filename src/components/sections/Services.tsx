@@ -10,6 +10,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal, SectionHeading, Magnetic } from "@/components/motion/primitives"
+import { StaggerReveal, StaggerItem, ClipReveal } from "@/components/motion/cinematic"
 import { SERVICES } from "@/lib/data/content"
 
 const ICONS: Record<string, LucideIcon> = {
@@ -34,18 +35,14 @@ export function Services() {
           description="From the first colour swatch to the final protective top-coat — our Berger Urban Exclusive Paints Store delivers a complete, dust-free painting experience backed by genuine Berger products."
         />
 
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+        <StaggerReveal className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6" stagger={0.12}>
           {SERVICES.map((service, i) => {
             const Icon = ICONS[service.icon] ?? Brush
             return (
+              <StaggerItem key={service.id}>
               <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
                 whileHover={{ y: -6 }}
-                className="group relative rounded-3xl border border-border/60 bg-card overflow-hidden shadow-card hover:shadow-warm transition-shadow"
+                className="group relative rounded-3xl border border-border/60 bg-card overflow-hidden shadow-card hover:shadow-warm transition-shadow h-full"
               >
                 {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -110,9 +107,10 @@ export function Services() {
                   className="absolute top-0 inset-x-0 h-1 paint-gradient origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
                 />
               </motion.div>
+              </StaggerItem>
             )
           })}
-        </div>
+        </StaggerReveal>
 
         {/* CTA banner */}
         <Reveal delay={0.1}>

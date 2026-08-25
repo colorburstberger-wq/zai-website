@@ -4,6 +4,8 @@ import * as React from "react"
 import { motion } from "framer-motion"
 import { CheckCircle2, Quote, MapPin, Calendar, Award, Home, Sparkles, Heart, ArrowRight } from "lucide-react"
 import { Reveal, SectionHeading, Counter, PaintStrokeDivider } from "@/components/motion/primitives"
+import { ParallaxImage, ClipReveal } from "@/components/motion/cinematic"
+import { FloatingSwatches } from "@/components/sections/FloatingSwatches"
 import { STATS, SHOP } from "@/lib/data/content"
 import { cn } from "@/lib/utils"
 
@@ -23,6 +25,7 @@ const HIGHLIGHTS = [
 export function About() {
   return (
     <section id="about" className="relative py-20 sm:py-28 overflow-hidden">
+      <FloatingSwatches />
       {/* Decorative paint stroke */}
       <div className="absolute top-0 inset-x-0 text-primary/40">
         <PaintStrokeDivider />

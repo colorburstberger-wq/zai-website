@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react"
 import { Reveal, SectionHeading, Counter, TiltCard } from "@/components/motion/primitives"
+import { FloatingSwatches } from "@/components/sections/FloatingSwatches"
 import { TESTIMONIALS } from "@/lib/data/content"
 
 export function Testimonials() {
@@ -26,6 +27,7 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="relative py-20 sm:py-28 overflow-hidden bg-secondary/30">
+      <FloatingSwatches />
       {/* Decorative big quote */}
       <Quote
         className="absolute top-10 right-10 h-40 w-40 text-primary/5"

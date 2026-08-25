@@ -4,6 +4,8 @@ import * as React from "react"
 import { motion } from "framer-motion"
 import { Check, ShieldCheck, Ruler, Layers, Star } from "lucide-react"
 import { Reveal, SectionHeading } from "@/components/motion/primitives"
+import { StaggerReveal, StaggerItem } from "@/components/motion/cinematic"
+import { FloatingSwatches } from "@/components/sections/FloatingSwatches"
 import { Badge } from "@/components/ui/badge"
 import { PRODUCTS } from "@/lib/data/content"
 
@@ -14,7 +16,8 @@ export function Products() {
   const filtered = PRODUCTS.filter((p) => brand === "All" || p.brand === brand)
 
   return (
-    <section id="products" className="relative py-20 sm:py-28">
+    <section id="products" className="relative py-20 sm:py-28 overflow-hidden">
+      <FloatingSwatches />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           kicker="Signature products"
@@ -45,10 +48,10 @@ export function Products() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <StaggerReveal className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" stagger={0.1}>
           {filtered.map((p, i) => (
+            <StaggerItem key={p.name}>
             <motion.article
-              key={p.name}
               layout
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -114,8 +117,9 @@ export function Products() {
                 </div>
               </div>
             </motion.article>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerReveal>
       </div>
     </section>
   )
