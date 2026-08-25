@@ -66,10 +66,23 @@ export function ServiceArea() {
             <div className="relative rounded-3xl overflow-hidden border-4 border-card shadow-card aspect-[16/10]">
               <iframe
                 title="Berger Urban Exclusive service area"
-                src="https://maps.google.com/maps?center=26.7606,83.3732&z=15&output=embed"
+                src="https://maps.google.com/maps?q=HIG+B+98+Rail+Vihar+Colony+Taramandal+Gorakhpur+273017&z=16&output=embed&iwloc="
                 className="absolute inset-0 h-full w-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                style={{ pointerEvents: "none" }}
+                onLoad={(e) => {
+                  // Hide the Google Maps info window via CSS injection
+                  try {
+                    const iframe = e.currentTarget as HTMLIFrameElement
+                    const doc = iframe.contentDocument || iframe.contentWindow?.document
+                    if (doc) {
+                      const style = doc.createElement('style')
+                      style.innerHTML = '.gm-style-iw, .gm-style-iw-c, .gm-style-iw-d, .gm-style-iw-t, [class*="gm-style-iw"], .place-card, .place-card-large { display: none !important; }'
+                      doc.head.appendChild(style)
+                    }
+                  } catch {}
+                }}
               />
               {/* Floating info card on map */}
               <motion.div
