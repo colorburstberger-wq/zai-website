@@ -64,14 +64,19 @@ export function ServiceArea() {
           {/* Map */}
           <Reveal className="lg:col-span-7" delay={0.05}>
             <div className="relative rounded-3xl overflow-hidden border-4 border-card shadow-card aspect-[16/10]">
-              <iframe
-                title="Berger Urban Exclusive service area"
+              {/* Static map image — no Google Maps popup */}
+              <img
                 src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&z=14&output=embed&iwloc=`}
-                className="absolute inset-0 h-full w-full"
+                alt="Berger Urban Exclusive Paints Store location map"
+                className="absolute inset-0 h-full w-full object-cover"
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                style={{ pointerEvents: "none" }}
+                onError={(e) => {
+                  // Fallback: show a styled placeholder if map image fails
+                  e.currentTarget.style.display = 'none'
+                }}
               />
+              {/* Dark overlay for better text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
               {/* Floating info card on map */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
