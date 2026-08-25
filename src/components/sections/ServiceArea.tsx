@@ -66,7 +66,7 @@ export function ServiceArea() {
             <div className="relative rounded-3xl overflow-hidden border-4 border-card shadow-card aspect-[16/10]">
               <iframe
                 title="Berger Urban Exclusive service area"
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&z=14&output=embed&iwloc=near`}
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&z=14&output=embed&iwloc=`
                 className="absolute inset-0 h-full w-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

@@ -129,19 +129,6 @@ export function Contact() {
                 </a>
               ))}
             </div>
-
-            {/* Map preview */}
-            <Reveal delay={0.1}>
-              <div className="mt-4 rounded-2xl overflow-hidden border border-border/60 shadow-card aspect-video relative">
-                <iframe
-                  title="Berger Urban Exclusive Paints Store location"
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&output=embed`}
-                  className="absolute inset-0 h-full w-full"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </Reveal>
           </Reveal>
 
           {/* Form */}
