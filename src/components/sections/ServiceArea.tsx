@@ -92,6 +92,20 @@ export function ServiceArea() {
                   {SHOP.address}
                 </p>
                 <Magnetic>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="mt-3 w-full rounded-full paint-gradient text-white border-0 shadow-warm h-8"
+                  >
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(SHOP.mapsQuery)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Navigation className="h-3 w-3 mr-1" />
+                      Get directions
+                    </a>
+                  </Button>
                 </Magnetic>
               </motion.div>
             </div>
