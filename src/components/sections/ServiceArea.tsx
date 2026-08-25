@@ -66,11 +66,49 @@ export function ServiceArea() {
             <div className="relative rounded-3xl overflow-hidden border-4 border-card shadow-card aspect-[16/10]">
               <iframe
                 title="Berger Urban Exclusive service area"
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&z=12&output=embed`}
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&z=14&output=embed&iwloc=near`}
                 className="absolute inset-0 h-full w-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                style={{ pointerEvents: "none" }}
               />
+              {/* Floating info card on map */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="absolute bottom-4 left-4 right-4 sm:right-auto sm:w-80 glass rounded-2xl border border-white/30 p-4 shadow-warm"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-9 w-9 rounded-xl paint-gradient grid place-items-center">
+                    <MapPin className="h-4 w-4 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-display text-sm font-bold text-foreground">Berger Urban Exclusive</p>
+                    <p className="text-[11px] text-muted-foreground">Siddharth Enclave, Gorakhpur</p>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {SHOP.address}
+                </p>
+                <Magnetic>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="mt-3 w-full rounded-full paint-gradient text-white border-0 shadow-warm h-8"
+                  >
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(SHOP.mapsQuery)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Navigation className="h-3 w-3 mr-1" />
+                      Get directions
+                    </a>
+                  </Button>
+                </Magnetic>
+              </motion.div>
             </div>
           </Reveal>
 
