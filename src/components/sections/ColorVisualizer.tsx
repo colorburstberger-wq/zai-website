@@ -113,6 +113,7 @@ export function ColorVisualizer() {
   const [selectedZone, setSelectedZone] = React.useState<string | null>(null)
   const [zoneColors, setZoneColors] = React.useState<Record<string, { hex: string; code: string; name: string }>>({})
   const [activeColorIdx, setActiveColorIdx] = React.useState(0)
+  const [customColor, setCustomColor] = React.useState<typeof VISUALIZER_COLORS[0] | null>(null)
   const [copied, setCopied] = React.useState(false)
   const [search, setSearch] = React.useState("")
   const [visibleCount, setVisibleCount] = React.useState(24)
@@ -122,7 +123,7 @@ export function ColorVisualizer() {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
 
   const room = ROOMS[roomIdx]
-  const color = FEATURED[activeColorIdx]
+  const color = activeColorIdx >= 0 ? FEATURED[activeColorIdx] : (customColor ?? FEATURED[0])
 
   // Handle room change
   const changeRoom = (idx: number) => {
@@ -600,14 +601,14 @@ export function ColorVisualizer() {
                     <button
                       key={s.code}
                       onClick={() => {
-                        // Set as active color
+                        // Set as active color by finding in featured or setting directly
                         const idx = FEATURED.findIndex(f => f.code === s.code)
                         if (idx >= 0) {
                           setActiveColorIdx(idx)
                         } else {
-                          // Replace first featured with this shade
-                          FEATURED[0] = s
-                          setActiveColorIdx(0)
+                          // Use a custom selected shade
+                          setCustomColor(s)
+                          setActiveColorIdx(-1)
                         }
                       }}
                       title={`${s.name} · ${s.code}`}

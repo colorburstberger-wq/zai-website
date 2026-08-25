@@ -1,5 +1,6 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/sections/Navbar"
 import { Hero } from "@/components/sections/Hero"
 import { BrandMarquee } from "@/components/sections/BrandMarquee"
@@ -19,15 +20,18 @@ import { Gallery } from "@/components/sections/Gallery"
 import { BeforeAfter } from "@/components/sections/BeforeAfter"
 import { ProcessWhyUs } from "@/components/sections/ProcessWhyUs"
 import { ComparisonTable } from "@/components/sections/ComparisonTable"
-import { Team } from "@/components/sections/Team"
-import { AwardBadges } from "@/components/sections/AwardBadges"
-import { ServiceArea } from "@/components/sections/ServiceArea"
-import { Testimonials } from "@/components/sections/Testimonials"
-import { VideoTestimonials } from "@/components/sections/VideoTestimonials"
-import { BlogTips } from "@/components/sections/BlogTips"
-import { FAQ } from "@/components/sections/FAQ"
-import { BookingCalendar } from "@/components/sections/BookingCalendar"
-import { Contact } from "@/components/sections/Contact"
+
+// Lazy-load below-fold sections to reduce initial bundle
+const Team = dynamic(() => import("@/components/sections/Team").then(m => ({ default: m.Team })), { ssr: true })
+const AwardBadges = dynamic(() => import("@/components/sections/AwardBadges").then(m => ({ default: m.AwardBadges })), { ssr: true })
+const ServiceArea = dynamic(() => import("@/components/sections/ServiceArea").then(m => ({ default: m.ServiceArea })), { ssr: true })
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials").then(m => ({ default: m.Testimonials })), { ssr: true })
+const VideoTestimonials = dynamic(() => import("@/components/sections/VideoTestimonials").then(m => ({ default: m.VideoTestimonials })), { ssr: true })
+const BlogTips = dynamic(() => import("@/components/sections/BlogTips").then(m => ({ default: m.BlogTips })), { ssr: true })
+const FAQ = dynamic(() => import("@/components/sections/FAQ").then(m => ({ default: m.FAQ })), { ssr: true })
+const BookingCalendar = dynamic(() => import("@/components/sections/BookingCalendar").then(m => ({ default: m.BookingCalendar })), { ssr: true })
+const Contact = dynamic(() => import("@/components/sections/Contact").then(m => ({ default: m.Contact })), { ssr: true })
+
 import { Footer } from "@/components/sections/Footer"
 import { ScrollToTop } from "@/components/sections/ScrollToTop"
 import { FloatingQuickActions, ScrollProgressBar } from "@/components/sections/FloatingQuickActions"

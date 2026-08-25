@@ -34,6 +34,8 @@ export function NewsletterPopup() {
   React.useEffect(() => {
     if (typeof window === "undefined") return
     if (sessionStorage.getItem("chroma-newsletter-seen")) return
+    // Disable on mobile/touch devices — exit intent doesn't work on touch
+    if (!window.matchMedia("(pointer: fine)").matches) return
 
     // Exit intent: mouse leaves top of viewport
     const onMouseOut = (e: MouseEvent) => {

@@ -100,14 +100,14 @@
   --sidebar-border: oklch(0.88 0.02 70);
   --sidebar-ring: oklch(0.55 0.16 38);
 
-  /* Paint swatch palette */
-  --paint-coral:   #E0623A;
-  --paint-saffron: #F2A93B;
-  --paint-mustard: #D9A441;
-  --paint-clay:    #B65C3F;
-  --paint-sage:    #8FA68E;
-  --paint-rose:    #D98C8C;
-  --paint-teal:    #4C8C8C;
+  /* Paint swatch palette — calm, muted tones */
+  --paint-coral:   #C17A6B;   /* muted terracotta-rose */
+  --paint-saffron: #B8A050;   /* soft gold-olive */
+  --paint-mustard: #A08840;   /* warm bronze */
+  --paint-clay:    #8B6F5C;   /* muted taupe */
+  --paint-sage:    #5A8A56;   /* darker sage for contrast */
+  --paint-rose:    #C49B9B;   /* dusty rose */
+  --paint-teal:    #2D6B6B;   /* deeper teal for contrast */
 }
 
 .dark {

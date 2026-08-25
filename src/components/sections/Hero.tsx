@@ -187,7 +187,7 @@ export function Hero() {
                 >
                   <Link href="#contact">
                     <Sparkles className="h-4 w-4 mr-2 group-hover:rotate-12 transition-transform" />
-                    Book Free Consultation
+                    Book Free Home Visit
                     <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>

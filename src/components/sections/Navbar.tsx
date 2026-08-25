@@ -169,7 +169,7 @@ export function Navbar() {
               >
                 <Link href="#contact" className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4 group-hover:rotate-12 transition-transform" />
-                  Free Consultation
+                  Free Home Visit
                 </Link>
               </Button>
             </Magnetic>
@@ -273,7 +273,7 @@ export function Navbar() {
               >
                 <Link href="#contact" onClick={() => setOpen(false)}>
                   <Sparkles className="h-4 w-4 mr-2" />
-                  Book Free Consultation
+                  Book Free Home Visit
                 </Link>
               </Button>
             </div>

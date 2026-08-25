@@ -10,6 +10,9 @@ import { FAQS } from "@/lib/data/content"
 export function FAQ() {
   const [open, setOpen] = React.useState<number | null>(0)
 
+  const allOpen = open === -1
+  const toggleAll = () => setOpen(allOpen ? null : -1)
+
   return (
     <section id="faq" className="relative py-20 sm:py-28 overflow-hidden">
       <FloatingSwatches />
@@ -21,12 +24,21 @@ export function FAQ() {
               Frequently asked <span className="text-gradient-warm">questions.</span>
             </>
           }
-          description="Still curious? Call us at +91 98765 43210 — a real human picks up."
+          description="Still curious? Call us at +91 93359 97992 — a real human picks up."
         />
 
-        <div className="mt-12 flex flex-col gap-3">
+        <div className="mt-8 flex justify-end">
+          <button
+            onClick={toggleAll}
+            className="text-xs text-primary hover:underline font-medium"
+          >
+            {allOpen ? "Close all" : "Open all"}
+          </button>
+        </div>
+
+        <div className="mt-4 flex flex-col gap-3">
           {FAQS.map((f, i) => {
-            const isOpen = open === i
+            const isOpen = open === i || open === -1
             return (
               <motion.div
                 key={f.q}
