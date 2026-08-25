@@ -192,20 +192,20 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
   }
   .paint-gradient {
-    background: linear-gradient(135deg, var(--paint-coral), var(--paint-saffron) 50%, var(--paint-mustard));
+    background: linear-gradient(135deg, var(--paint-teal), var(--paint-sage) 50%, var(--paint-teal));
   }
   .paint-gradient-soft {
-    background: linear-gradient(135deg, color-mix(in oklch, var(--paint-coral) 14%, transparent), color-mix(in oklch, var(--paint-saffron) 14%, transparent), color-mix(in oklch, var(--paint-mustard) 14%, transparent));
+    background: linear-gradient(135deg, color-mix(in oklch, var(--paint-teal) 14%, transparent), color-mix(in oklch, var(--paint-sage) 14%, transparent), color-mix(in oklch, var(--paint-teal) 14%, transparent));
   }
   .text-gradient-warm {
-    background: linear-gradient(120deg, var(--paint-clay), var(--paint-coral) 45%, var(--paint-saffron));
+    background: linear-gradient(120deg, var(--paint-teal), var(--paint-sage) 45%, var(--paint-teal));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
   .shadow-warm {
-    box-shadow: 0 18px 50px -18px color-mix(in oklch, var(--paint-coral) 50%, transparent);
+    box-shadow: 0 18px 50px -18px color-mix(in oklch, var(--paint-teal) 40%, transparent);
   }
   .shadow-card {
     box-shadow: 0 1px 2px color-mix(in oklch, var(--foreground) 8%, transparent), 0 18px 40px -22px color-mix(in oklch, var(--foreground) 22%, transparent);

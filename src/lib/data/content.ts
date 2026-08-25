@@ -186,14 +186,14 @@ export const PALETTE_SWATCHES = [
 ]
 
 export const VISUALIZER_COLORS = [
-  { name: "Warm Terracotta", hex: "#E0623A" },
-  { name: "Saffron Sun", hex: "#F2A93B" },
-  { name: "Sage Garden", hex: "#8FA68E" },
-  { name: "Rose Quartz", hex: "#D98C8C" },
-  { name: "Teal Lagoon", hex: "#4C8C8C" },
-  { name: "Ivory Cream", hex: "#F4E9D6" },
-  { name: "Clay Hut", hex: "#B65C3F" },
-  { name: "Charcoal Slate", hex: "#3B3A36" },
+  { name: "Brunette", hex: "#977A6E", code: "8D2554" },
+  { name: "Calm Seas", hex: "#AED4D3", code: "7T1443" },
+  { name: "Pinetree Trail", hex: "#448688", code: "7D1447" },
+  { name: "Frosted Ice", hex: "#D1EAEF", code: "5P0123" },
+  { name: "Open Sky", hex: "#72B2D5", code: "5T1101" },
+  { name: "Savvy White", hex: "#F0EFE7", code: "3P1843" },
+  { name: "Brazen Green", hex: "#006259", code: "4A2183" },
+  { name: "Mint Leaf", hex: "#E9EFB8", code: "3T0851" },
 ]
 
 export const GALLERY = [
