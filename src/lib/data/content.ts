@@ -6,9 +6,9 @@ export const SHOP = {
   shortName: "Berger Urban Exclusive",
   tagline: "Gorakhpur's trusted Berger Paints exclusive store.",
   founded: 2010,
-  phone: "+91 94150 00000",
-  whatsapp: "+91 94150 00000",
-  email: "bergerurbanexclusive.gkp@gmail.com",
+  phone: "+91 93359 97992",
+  whatsapp: "+91 93359 97992",
+  email: "colorburstberger@gmail.com",
   address: "HIG B 98, Rail Vihar Colony Phase 3rd, Taramandal, Siddharth Enclave, Gorakhpur, Uttar Pradesh 273017",
   addressShort: "Siddharth Enclave, Taramandal, Gorakhpur 273017",
   hours: [
