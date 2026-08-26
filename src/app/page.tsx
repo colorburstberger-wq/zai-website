@@ -38,9 +38,7 @@ import { FloatingQuickActions, ScrollProgressBar } from "@/components/sections/F
 import { PaintCursor } from "@/components/sections/PaintCursor"
 import { ClickSplash } from "@/components/sections/ClickSplash"
 import { PageLoader } from "@/components/sections/PageLoader"
-import { NewsletterPopup } from "@/components/sections/NewsletterPopup"
 import { AdminDashboard } from "@/components/sections/AdminDashboard"
-import { StickyCTA } from "@/components/sections/StickyCTA"
 
 export default function Home() {
   return (
@@ -49,9 +47,7 @@ export default function Home() {
       <ScrollProgressBar />
       <PaintCursor />
       <ClickSplash />
-      <NewsletterPopup />
       <AdminDashboard />
-      <StickyCTA />
       <Navbar />
       <main className="flex-1">
         <Hero />
