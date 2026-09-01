@@ -73,3 +73,11 @@ model ConsultationBooking {
   @@index([status])
   @@index([createdAt])
 }
+
+/// Admin notes — notepad for planning future updates
+model AdminNote {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

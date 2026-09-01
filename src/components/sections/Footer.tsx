@@ -5,7 +5,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   Palette, Phone, Mail, MapPin, Facebook, Instagram, Youtube,
-  ArrowRight, Loader2, CheckCircle2, Sparkles,
+  ArrowRight, Loader2, CheckCircle2, Sparkles, Lock,
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -227,6 +227,14 @@ export function Footer() {
             <Link href="#" className="hover:text-paint-saffron transition-colors">Privacy</Link>
             <Link href="#" className="hover:text-paint-saffron transition-colors">Terms</Link>
             <Link href="#" className="hover:text-paint-saffron transition-colors">Warranty</Link>
+            <Link
+              href="/admin/notes"
+              target="_blank"
+              className="hover:text-paint-saffron transition-colors flex items-center gap-1"
+            >
+              <Lock className="h-3 w-3" />
+              Admin
+            </Link>
           </div>
         </div>
       </div>
