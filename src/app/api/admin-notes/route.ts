@@ -6,6 +6,9 @@ const ADMIN_PASSWORD = "Akarsh@123."
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || ""
 const SUPABASE_KEY = process.env.SUPABASE_SECRET_KEY || ""
 
+// Table name in Supabase — Prisma created it as "AdminNote" with columns "createdAt"/"updatedAt"
+const TABLE = "AdminNote"
+
 function checkAuth(req: NextRequest) {
   const auth = req.headers.get("authorization")
   if (!auth || auth !== `Bearer ${ADMIN_PASSWORD}`) {
@@ -26,20 +29,18 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 })
   }
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_notes?order=updated_at.desc`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?order=updatedAt.desc`, {
       headers: supabaseHeaders,
     })
     if (!res.ok) {
-      // Table doesn't exist yet — create it
-      await createTable()
       return NextResponse.json({ ok: true, notes: [] })
     }
     const data = await res.json()
     const notes = data.map((n: any) => ({
       id: n.id,
       content: n.content,
-      createdAt: n.created_at,
-      updatedAt: n.updated_at,
+      createdAt: n.createdAt,
+      updatedAt: n.updatedAt,
     }))
     return NextResponse.json({ ok: true, notes })
   } catch (err) {
@@ -59,26 +60,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "Content required" }, { status: 400 })
     }
 
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_notes`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
       method: "POST",
       headers: { ...supabaseHeaders, Prefer: "return=representation" },
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ id: crypto.randomUUID(), content }),
     })
 
     if (!res.ok) {
-      // Try creating table then retry
-      await createTable()
-      const retryRes = await fetch(`${SUPABASE_URL}/rest/v1/admin_notes`, {
-        method: "POST",
-        headers: { ...supabaseHeaders, Prefer: "return=representation" },
-        body: JSON.stringify({ content }),
-      })
-      if (!retryRes.ok) {
-        return NextResponse.json({ ok: false, error: "Failed to save" }, { status: 500 })
-      }
-      const data = await retryRes.json()
-      const note = mapNote(data[0])
-      return NextResponse.json({ ok: true, note })
+      const errText = await res.text()
+      return NextResponse.json({ ok: false, error: `Failed to save: ${errText}` }, { status: 500 })
     }
 
     const data = await res.json()
@@ -101,10 +91,10 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "ID and content required" }, { status: 400 })
     }
 
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_notes?id=eq.${id}`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
       method: "PATCH",
       headers: { ...supabaseHeaders, Prefer: "return=representation" },
-      body: JSON.stringify({ content, updated_at: new Date().toISOString() }),
+      body: JSON.stringify({ content }),
     })
 
     if (!res.ok) {
@@ -130,7 +120,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "ID required" }, { status: 400 })
     }
 
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_notes?id=eq.${id}`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
       method: "DELETE",
       headers: supabaseHeaders,
     })
@@ -145,32 +135,11 @@ export async function DELETE(req: NextRequest) {
   }
 }
 
-// Create the admin_notes table via Supabase SQL API
-async function createTable() {
-  try {
-    const sql = `
-      CREATE TABLE IF NOT EXISTS admin_notes (
-        id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
-        content TEXT NOT NULL,
-        created_at TIMESTAMPTZ DEFAULT NOW(),
-        updated_at TIMESTAMPTZ DEFAULT NOW()
-      );
-      ALTER TABLE admin_notes ENABLE ROW LEVEL SECURITY;
-      CREATE POLICY "Allow all via service key" ON admin_notes FOR ALL USING (true) WITH CHECK (true);
-    `
-    await fetch(`${SUPABASE_URL}/rest/v1/rpc/`, {
-      method: "POST",
-      headers: { ...supabaseHeaders, "Content-Type": "application/json" },
-      body: JSON.stringify({ query: sql }),
-    }).catch(() => {})
-  } catch {}
-}
-
 function mapNote(n: any) {
   return {
     id: n.id,
     content: n.content,
-    createdAt: n.created_at || new Date().toISOString(),
-    updatedAt: n.updated_at || new Date().toISOString(),
+    createdAt: n.createdAt || new Date().toISOString(),
+    updatedAt: n.updatedAt || new Date().toISOString(),
   }
 }
