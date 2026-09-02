@@ -177,6 +177,16 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li className="pt-2 mt-2 border-t border-white/10">
+                <Link
+                  href="/admin/notes"
+                  target="_blank"
+                  className="text-sm text-background/40 hover:text-paint-saffron transition-colors flex items-center gap-1.5"
+                >
+                  <Lock className="h-3 w-3" />
+                  Admin
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -227,14 +237,6 @@ export function Footer() {
             <Link href="#" className="hover:text-paint-saffron transition-colors">Privacy</Link>
             <Link href="#" className="hover:text-paint-saffron transition-colors">Terms</Link>
             <Link href="#" className="hover:text-paint-saffron transition-colors">Warranty</Link>
-            <Link
-              href="/admin/notes"
-              target="_blank"
-              className="hover:text-paint-saffron transition-colors flex items-center gap-1"
-            >
-              <Lock className="h-3 w-3" />
-              Admin
-            </Link>
           </div>
         </div>
       </div>
