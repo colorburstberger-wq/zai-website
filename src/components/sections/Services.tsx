@@ -41,15 +41,15 @@ export function Services() {
             return (
               <StaggerItem key={service.id}>
               <motion.div
-                whileHover={{ y: -6 }}
-                className="group relative rounded-3xl border border-border/60 bg-card overflow-hidden shadow-card hover:shadow-warm transition-shadow h-full"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group relative rounded-3xl border border-border/60 bg-card overflow-hidden shadow-card hover:shadow-warm transition-all duration-300 h-full card-lift gradient-border"
               >
                 {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <div className="absolute top-3 left-3">

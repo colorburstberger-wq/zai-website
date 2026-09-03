@@ -85,7 +85,7 @@ export function Testimonials() {
           <div className="lg:col-span-8">
             <Reveal delay={0.1}>
               <TiltCard max={8} className="rounded-3xl">
-                <div className="relative rounded-3xl bg-card border border-border/60 p-6 sm:p-8 shadow-card min-h-[18rem] flex flex-col justify-between overflow-hidden">
+                <div className="relative rounded-3xl bg-card border border-border/60 p-6 sm:p-8 shadow-card min-h-[18rem] flex flex-col justify-between overflow-hidden gradient-border">
                   {/* Decorative big quote watermark */}
                   <Quote className="absolute -top-4 -right-4 h-32 w-32 text-primary/5" strokeWidth={1} />
 

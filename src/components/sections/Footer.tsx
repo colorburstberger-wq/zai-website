@@ -133,7 +133,7 @@ export function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-paint-saffron hover:text-foreground grid place-items-center transition-colors"
+                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-paint-saffron hover:text-foreground grid place-items-center transition-all hover:scale-110 hover:rotate-6"
                   aria-label="Social link"
                 >
                   <Icon className="h-4 w-4" />

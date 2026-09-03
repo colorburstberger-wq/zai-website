@@ -143,7 +143,7 @@ export function Hero() {
               <br />
               Berger Paints{" "}
               <span className="relative inline-block">
-                <span className="text-gradient-warm">exclusive store.</span>
+                <span className="animate-gradient-text">exclusive store.</span>
                 <motion.svg
                   viewBox="0 0 320 30"
                   className="absolute -bottom-3 left-0 w-full h-6"

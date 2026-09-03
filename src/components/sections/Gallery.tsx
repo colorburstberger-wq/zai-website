@@ -58,17 +58,17 @@ export function Gallery() {
                 layout
                 key={g.title}
                 onClick={() => setActive(GALLERY.indexOf(g))}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: (i % 3) * 0.05 }}
-                whileHover={{ y: -6 }}
-                className="group relative aspect-[4/5] rounded-3xl overflow-hidden shadow-card border-4 border-card text-left"
+                transition={{ duration: 0.5, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -10, scale: 1.03 }}
+                className="group relative aspect-[4/5] rounded-3xl overflow-hidden shadow-card border-4 border-card text-left card-lift"
               >
                 <img
                   src={g.image}
                   alt={g.title}
-                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-115 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 

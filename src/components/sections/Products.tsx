@@ -58,7 +58,7 @@ export function Products() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
               whileHover={{ y: -6 }}
-              className="group relative rounded-3xl border border-border/60 bg-card overflow-hidden shadow-card hover:shadow-warm transition-shadow"
+              className="group relative rounded-3xl border border-border/60 bg-card overflow-hidden shadow-card hover:shadow-warm transition-all duration-300 card-lift gradient-border"
             >
               {/* Swatch header */}
               <div

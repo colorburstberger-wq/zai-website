@@ -263,7 +263,7 @@ export function Contact() {
                         <Button
                           type="submit"
                           disabled={submitting}
-                          className="w-full h-12 rounded-full paint-gradient text-white border-0 shadow-warm hover:opacity-90 font-semibold"
+                          className="w-full h-12 rounded-full paint-gradient text-white border-0 shadow-warm hover:opacity-90 font-semibold animate-glow"
                         >
                           {submitting ? (
                             <>

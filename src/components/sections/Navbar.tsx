@@ -143,7 +143,7 @@ export function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className="relative px-2.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+                    className="relative px-2.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group animated-underline"
                   >
                     {link.label}
                     <span className="absolute inset-x-3 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
